@@ -1,0 +1,63 @@
+.main-registration-container {
+    display: flex;
+    margin: 100px auto;
+}
+
+.registration-form-container {
+    font-family: 'Roboto', sans-serif;
+    background-image: url('../assets/background_registratie.jpg');
+    background-position: top;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    margin: auto;
+    width: 600px;
+    height: 450px;
+    border-radius: 25px;
+    color: white;
+}
+
+
+.firstname-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+input {
+    height: 20px;
+    position: relative;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.register-already-registered:hover p {
+    text-decoration-line: underline;
+}
+
+.errormessage-register {
+    position: relative;
+    bottom: 18px;
+}
+
+.register-already-registered {
+    position: relative;
+    bottom: 20px;
+}
+
+.errormessage-pattern, .errormessage-minlength, .errormessage-register {
+    position: relative;
+    bottom: 18px;
+    color: red;
+    background: white;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 170px;
+}

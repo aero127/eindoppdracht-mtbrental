@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.main-login-container{
+    display: flex;
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-content: space-between;
+
+}
+
+.login-container {
+    font-family: 'Roboto', sans-serif;
+    background-image: url(../assets/login_background.jpg);
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    margin: 100px auto;
+    width: 600px;
+    height: 475px;
+    border-radius: 25px;
+}
+
+span {
+    color: red;
+    font-size: 12px;
+    font-style: unset;
+}
+
+h2 {
+    color: white;
+}
+
+.login-form {
+    color: white;
+    font-size: 18px;
+    margin: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+p {
+    font-size: 10px;
+}
+
+.register-createaccount:hover, .register-forgotpassword:hover {
+    text-decoration-line: underline;
+}
+.register-createaccount, .register-forgotpassword {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+input#emailadres {
+    position: relative;
+    bottom: 3px;
+    margin-top: 5px;
+}
+input#password {
+    position: relative;
+    bottom: 3px;
+    margin-top: 5px;
+}

@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import "../../node_modules/react-image-gallery/styles/css/image-gallery.css";
+
+
+.main-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 75%;
+    margin: auto;
+}
+.textcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 30%;
+    height: 350px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 25px;
+    border: 2px solid #d6d6d6;
+    padding: 40px;
+    margin: 100px;
+}
+
+.photoslider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 30%;
+    max-height: 350px;
+}
+.slider{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image{
+    max-width: 500px;
+    max-height: 350px;
+    border-radius: 10px;
+}
+
+.right-arrow {
+    position: absolute;
+    top: 50%;
+    right: 32px;
+    font-size: 3rem;
+    color: black;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+}
+
+.left-arrow {
+    position: absolute;
+    top: 50%;
+    left: 32px;
+    font-size: 3rem;
+    color: black;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+}
+
+.slide {
+    opacity: 0;
+    transition-duration: 1s;
+}
+
+.slide.active {
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1.08);
+}
