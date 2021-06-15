@@ -1,0 +1,24 @@
+.calender-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+}
+
+.reservation-page-container {
+    max-width: 1000px;
+    margin: 100px;
+    width: 100%;
+    height: 600px;
+/*    background-image: url("../assets/reservation background.jpg");*/
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
+}
+
+.reservation-image {
+max-width: 800px;
+}
+
+.main-reservation-container {
+    display: flex;
+    justify-content: center;
+}

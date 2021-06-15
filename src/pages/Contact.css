@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+root {
+    font-family: 'Roboto', sans-serif;
+}
+
+.contact-page-container {
+    max-width: 1000px;
+    display: flex;
+    flex-direction: row;
+    height: 600px;
+    margin: 100px auto;
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
+}
+
+.contact-page-picture {
+    display: flex;
+    max-height: 600px;
+}
+
+.contact-page {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 150px;
+}
+
+#contact-name input, #contact-email input, #contact-phonenumber input {
+    background: #d6d6d6;
+    margin-bottom: 40px;
+    height: 30px;
+    width: 300px;
+    border-style: none;
+    padding-left: 10px;
+}
+
+#contact-message textarea {
+    background: #d6d6d6;
+    border-style: none;
+    padding-left: 10px;
+}
+
+#contact-submit-button {
+    width: 310px;
+    margin-top: 30px;
+    background-color: #d6d6d6;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: black;
+    transition: .3s;
+    height: 30px;
+    font-weight: bold;
+}
+.errormessage {
+    color: red;
+    font-size: 15px;
+    position: absolute;
+    bottom: 10px;
+}
+
+label {
+    position: relative;
+}

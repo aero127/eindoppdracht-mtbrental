@@ -1,0 +1,16 @@
+.reservation-page-container {
+    width: 1200px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
+    margin: 100px auto;
+}
+
+.main-reservation-container {
+    display: flex;
+    justify-content: center;
+}

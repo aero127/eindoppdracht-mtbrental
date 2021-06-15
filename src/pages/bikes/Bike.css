@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.bike-container {
+    font-family: 'Roboto', sans-serif;
+    background-image: url(./pics/bikes_background.jpg);
+    background-position-x: left;
+    background-position-y: center;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    height: 700px;
+    color: white;
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
+}
+
+.bike-container img {
+    width: 36%;
+    height: auto;
+    position: relative;
+}
+
+.bike-container h2 {
+    position: relative;
+}
+
+.bikeSpecs {
+    max-width: 600px;
+    position: relative;
+    top: 20px;
+}
+
+.bikePrices {
+    width: 350px;
+    height: 200px;
+    background: white;
+    border-radius: 25px;
+    text-align: center;
+    position: relative;
+    right: 120px;
+    color: black;
+    top: 70px;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    box-sizing: border-box;
+    align-items: center;
+    flex-direction: column;
+}
+.bike-price-3hours, .bike-price-day, .bike-price-week {
+    color: black;
+    position: relative;
+    z-index: 2;
+}
+
+.bike-helmet-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 6px;
+    box-sizing: border-box;
+    align-items: center;
+    flex-direction: column;
+    height: 150px;
+    width: 150px;
+    border-radius: 25px;
+    position: relative;
+    bottom: 95px;
+    background: white;
+    color: black;
+    font-size: 15px;
+    left: 200px;
+}
+
+.bike-general {
+    display: flex;
+    width: 300px;
+    height: auto;
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
+    flex-direction: column;
+    padding: 0px 30px 30px 30px;
+    margin: 50px 50px 50px 30px;
+    max-height: 640px;
+    box-sizing: border-box;
+}
+
+.bike-general-info {
+    max-height: 100%;
+    overflow: scroll;
+}
+
+.bike-total {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 100%;
+    margin: 100px auto;
+    align-content: center;
+    justify-content: center;
+}
+
+.also-available-in {
+    position: relative;
+    color: white;
+    bottom: 250px;
+    right: 400px;
+}
+
+.bike-also-available {
+    position: relative;
+    bottom: 30px;
+}
+
+/*.bike-also-available:hover {
+    position: relative;
+    bottom: 30px;
+    text-decoration-line: underline;
+}*/
+
+.left-arrow-bikes {
+    position: relative;
+    font-size: 3rem;
+    color: black;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+}
+
+.right-arrow-bikes {
+    position: relative;
+    font-size: 3rem;
+    color: black;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+    left: 30px;
+}
