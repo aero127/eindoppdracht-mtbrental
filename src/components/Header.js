@@ -2,6 +2,7 @@ import React from 'react';
 import { ImPhone } from "react-icons/im";
 import { MdAssignmentTurnedIn } from "react-icons/md"
 import { FaUser } from "react-icons/fa"
+import {NavLink} from "react-router-dom";
 
 function Header({ background, title, mtblogo }) {
     return (
@@ -10,7 +11,7 @@ function Header({ background, title, mtblogo }) {
                 <ul>
                     <li><ImPhone color="white"/><a href="#"> 035-5446937</a></li>
                     <li><MdAssignmentTurnedIn color="white"/><a href="#">Direct reserveren</a></li>
-                    <li><FaUser color="white"/><a href="#"> Inloggen</a></li>
+                    <li><FaUser color="white"/><NavLink to="/login" exact activeClassName="active-link">Inloggen</NavLink></li>
                 </ul>
             </div>
             <div className="header-wrapper">
@@ -19,10 +20,10 @@ function Header({ background, title, mtblogo }) {
                 </div>
                 <nav>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Onze fietsen</a></li>
-                        <li><a href="#">Verhuur locatie</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><NavLink to="/" exact activeClassName="active-link">Home</NavLink></li>
+                        <li><NavLink to="/mtb26inch" exact activeClassName="active-link">Onze fietsen</NavLink></li>
+                        <li><NavLink to="/location" exact activeClassName="active-link">Verhuur locatie</NavLink></li>
+                        <li><NavLink to="/contact" exact activeClassName="active-link">Contact</NavLink></li>
                     </ul>
                 </nav>
                 <div className="extra-ruimte"></div>

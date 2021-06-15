@@ -15,7 +15,7 @@
     margin: auto;
     width: 600px;
     height: 450px;
-    border-radius: 25px;
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
     color: white;
 }
 
@@ -45,7 +45,10 @@ input {
 
 .register-already-registered {
     position: relative;
-    bottom: 20px;
+    font-size: 10px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
 }
 
 .errormessage-pattern, .errormessage-minlength, .errormessage-register {
@@ -55,9 +58,16 @@ input {
     background: white;
 }
 
-label {
+.registration-form-container label {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     max-width: 170px;
+    position: relative;
+    bottom: 50px;
+}
+
+.register-already-registered button {
+    position: relative;
+    top: 20px;
 }

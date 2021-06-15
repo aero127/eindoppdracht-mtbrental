@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import {Link, NavLink} from "react-router-dom";
 
 
 function Login(background_login) {
@@ -35,9 +36,9 @@ function Login(background_login) {
                 </label>
 
                 <div className="register-createaccount">
-                 Account aanmaken</div>
+                    <Link to="/registration" style={{color: 'white',textDecoration: 'none'}}>Account aanmaken</Link></div>
                 <div className="register-forgotpassword">
-                    Wachtwoord vergeten</div>
+                    <Link to="/lostpassword" style={{color: 'white',textDecoration: 'none'}}>Wachtwoord vergeten?</Link></div>
 
                 <button type="submit">Login</button>
             </form>

@@ -18,10 +18,10 @@
     margin: 100px auto;
     width: 600px;
     height: 475px;
-    border-radius: 25px;
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
 }
 
-span {
+span .errormessage {
     color: red;
     font-size: 12px;
     font-style: unset;
@@ -55,6 +55,8 @@ p {
     font-size: 12px;
     text-align: center;
     margin-bottom: 10px;
+    color: white;
+    text-decoration: none;
 }
 
 input#emailadres {

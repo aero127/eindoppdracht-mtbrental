@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Registration.css';
 import {useForm} from "react-hook-form";
+import {Link} from "react-router-dom";
 
 function Registration(props) {
     const { handleSubmit, formState: { errors }, register } = useForm({ mode: 'onChange' });
+    const [password, setPassword] =  useState(null)
 
+
+    function validatePassword (value) {
+        if (password !== value)
+            return false;
+    }
     function onFormSubmit(data) {
         console.log(data);
     }
@@ -31,21 +38,23 @@ function Registration(props) {
                         {errors.emailadres && <span className="errormessage-register">Voer een geldig email adres in</span>}
                     </label>
                     <label htmlFor="password" id="password">
-                            <input type="password" placeholder="Wachtwoord.." id="password-registration" {...register("password", {required: true, minLength: 8, pattern: {
+                            <input type="password" placeholder="Wachtwoord.." id="password-registration" {...register("password", {required: true, minLength: 8, validate: (value) => validatePassword(value) ,pattern: {
                                     value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
                                     message: "Geen geldig wachtwoord"
                                 }})}/>
                             {errors.password && errors.password.type === "required" && <span className="errormessage-register">Dit veld is verplicht.</span>}
                             {errors.password && errors.password.type === "minLength" && <span className="errormessage-minlength">Het wachtwoord moet minimaal 8 tekens bevatten</span>}
                             {errors.password && errors.password.type === "pattern" && <span className="errormessage-pattern">Het wachtwoord moet minimaal 1 Hoofdletter, 1 kleine letter en een cijfer bevatten</span>}
+{/*                            {errors.password && errors.password.type === "validate" && <span className="errormessage-register" id="password-check">Wachtwoorden komen niet overeen.</span>}*/}
                     </label>
-                    <label htmlFor="password" id="password-confirm">
-                            <input type="password" placeholder="Wachtwoord bevestigen.." id="password-confirm-registration" {...register("passwordconfirm", {required: true, minLength: 6})}/>
+                    <label htmlFor="password-confirm" id="password-confirm">
+                            <input type="password" placeholder="Wachtwoord bevestigen.." id="password-confirm-registration" value={password} onChange={(e) => setPassword(e.target.value)}/>
                             {errors.passwordconfirm && errors.passwordconfirm.type === "required" && <span className="errormessage-register">Dit veld is verplicht.</span>}
+                            {errors.password && errors.password.type === "validate" && <span className="errormessage-register" id="password-check">Wachtwoorden komen niet overeen.</span>}
                     </label>
                     </div>
                     <div className="register-already-registered">
-                        <p>Al een account? Log in!</p>
+                        <Link to="/login" style={{color: 'white',textDecoration: 'none'}}>Al een account? Log in!</Link>
                         <button type="submit">Registreer</button>
                     </div>
                 </form>
