@@ -3,7 +3,7 @@ import './Registration.css';
 import {useForm} from "react-hook-form";
 import {Link} from "react-router-dom";
 
-function Registration(props) {
+function Registration() {
     const { handleSubmit, formState: { errors }, register } = useForm({ mode: 'onChange' });
     const [password, setPassword] =  useState(null)
 

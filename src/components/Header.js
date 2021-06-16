@@ -9,8 +9,8 @@ function Header({ background, title, mtblogo }) {
         <div className="header-container" style={{ backgroundImage: `url(${background})` }}>
             <div className="top-list">
                 <ul>
-                    <li><ImPhone color="white"/><a href="#"> 035-5446937</a></li>
-                    <li><MdAssignmentTurnedIn color="white"/><a href="#">Direct reserveren</a></li>
+                    <li><ImPhone color="white"/><a href="tel://035-5446937"> 035-5446937</a></li>
+                    <li><MdAssignmentTurnedIn color="white"/><NavLink to="/booking" exact activeClassName="active-link">Direct reserveren</NavLink></li>
                     <li><FaUser color="white"/><NavLink to="/login" exact activeClassName="active-link">Inloggen</NavLink></li>
                 </ul>
             </div>

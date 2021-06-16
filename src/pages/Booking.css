@@ -14,3 +14,16 @@
     display: flex;
     justify-content: center;
 }
+
+.booking-select-button {
+    width: 200px;
+    margin-top: 30px;
+    background-color: #d6d6d6;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: black;
+    transition: .3s;
+    height: 30px;
+    font-weight: bold;
+}

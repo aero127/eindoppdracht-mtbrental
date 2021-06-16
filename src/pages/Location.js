@@ -1,6 +1,5 @@
 import React from 'react';
 import "./Location.css";
-import Plattegrond from "../assets/googlemaps_plattegrond.jpg"
 
 
 function Location(props) {
@@ -9,9 +8,9 @@ function Location(props) {
             <div className="location-container">
                 <h1 className="location-h1">Mountainbike Verhuur locatie</h1>
                 <div className="location-content">
-                   <p><h3>Verhuur vanaf Hilversum</h3></p>
+                   <h3>Verhuur vanaf Hilversum</h3>
                     Vanaf onze vaste verhuur locatie in Hilversum kunnen mountainbikes, helmen en accessoires opgehaald en teruggebracht worden. Onze verhuuractiviteiten zijn ondergebracht in de Skate7 skateshop te Hilversum. Deze locatie vormt een mooie uitvalsbasis voor de mooie fietsroutes rondom Hilversum maar natuurlijk ook voor de volledig vernieuwde MTB routes Hoge Vuursche en Lage Vuursche. Na reservering zijn de fietsen en accessoires hier op de gewenste dag en tijdstip op te halen en terug te brengen.
-                    <p><h3>Bezorging naar elke gewenste locatie</h3></p>
+                    <h3>Bezorging naar elke gewenste locatie</h3>
                     Mountainbikes, helmen en bijbehorende accessoires kunnen op aanvraag naar elke gewenste locatie (bijvoorbeeld huisadres, of bij een MTB route) worden gebracht en opgehaald. Meer weten over onze bezorging? neem dan gerust contact met ons op.
                 </div>
             </div>

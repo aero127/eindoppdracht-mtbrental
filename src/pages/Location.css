@@ -49,6 +49,6 @@
 .location-beschikbaar li:hover {
     text-decoration-line: underline;
 }
-.location-content p {
+.location-content h3 {
     font-size: 15px;
 }
