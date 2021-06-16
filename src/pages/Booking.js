@@ -6,6 +6,7 @@ import moment from "moment";
 import {useForm} from "react-hook-form";
 import SelectComponent from '../components/SelectComponent'
 import BikeList from '../components/BikeList'
+import BikeCounter from '../components/BikeCounter'
 
 const Booking = () => {
     const [startDate, setStartDate] = useState(new Date());
@@ -68,6 +69,7 @@ const Booking = () => {
                             placeholder="Kies hier een fiets"
                             />
                         <BikeList/>
+                        <BikeCounter/>
                         <button type="submit" className="booking-select-button">
                             bevestigen
                         </button>
