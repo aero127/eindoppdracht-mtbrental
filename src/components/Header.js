@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ImPhone } from "react-icons/im";
 import { MdAssignmentTurnedIn } from "react-icons/md"
 import { FaUser } from "react-icons/fa"
 import {NavLink} from "react-router-dom";
+import { AuthContext } from '../context/AuthContext';
+
+
 
 function Header({ background, title, mtblogo }) {
+
     return (
         <div className="header-container" style={{ backgroundImage: `url(${background})` }}>
             <div className="top-list">
