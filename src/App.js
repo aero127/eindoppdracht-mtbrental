@@ -24,8 +24,10 @@ import Mtbkids from "./pages/bikes/MTBKids";
 import MtbElectric from "./pages/bikes/MTBElectric";
 import Location from "./pages/Location";
 import Contact from "./pages/Contact";
-import ScrollToTop from "./components/ScrollToTop"
+import ScrollToTop from "./components/ScrollToTop";
 import Booking from "./pages/Booking";
+import { BookingProvider } from './BookingContext';
+import Profile from './pages/Profile';
 import {
     BrowserRouter as Router,
     Switch,
@@ -35,13 +37,18 @@ import {
 
 function App() {
   return (
-      <Router>
+      <>
+      <BookingProvider>
+
           <ScrollToTop/>
       <Header
       background={backgroundtop}
       mtblogo={mtblogo}
       />
           <Switch>
+              <Route exact path='/profile'>
+                  <Profile/>
+              </Route>
               <Route exact path="/booking">
               <Booking/>
               </Route>
@@ -86,7 +93,9 @@ function App() {
           background_footer={background_footer}
       />
 
-      </Router>
+
+      </BookingProvider>
+      </>
   );
 }
 

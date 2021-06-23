@@ -1,6 +1,6 @@
-.reservation-page-container {
+.main-reservation-container {
     width: 1200px;
-    height: 600px;
+    height: 700px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -8,12 +8,22 @@
     align-content: center;
     box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
     margin: 100px auto;
+    text-align: center;
 }
 
-.main-reservation-container {
+.bookingpage-container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 
 .booking-select-button {
     width: 200px;
@@ -26,4 +36,45 @@
     transition: .3s;
     height: 30px;
     font-weight: bold;
+}
+.rent-duration {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    justify-content: space-between;
+}
+
+.react-datepicker__input-container {
+    display: flex;
+    position: relative;
+    left: 30px;
+}
+
+.checkbox-helmet {
+    display: flex;
+    flex-direction: row;
+}
+.booking-helmet-container, .booking-spd-container{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.reservation-button {
+    height: 50px;
+    width: 200px;
+    font-size: 15px;
+    border-style: none;
+}
+
+.check-booking {
+    text-align: center;
+    display: flex;
+    height: 50px;
+}
+
+.reservation-overview {
+    color: black;
 }

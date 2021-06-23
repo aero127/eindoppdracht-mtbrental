@@ -1,26 +1,57 @@
 import React, {useState} from 'react';
 import './Registration.css';
 import {useForm} from "react-hook-form";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import axios from "axios";
 
 function Registration() {
+    const [loading, toggleLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [registerSuccess, toggleRegisterSuccess] = useState(false);
     const { handleSubmit, formState: { errors }, register } = useForm({ mode: 'onChange' });
     const [password, setPassword] =  useState(null)
-
+    const history = useHistory();
 
     function validatePassword (value) {
         if (password !== value)
             return false;
     }
-    function onFormSubmit(data) {
+    async function onSubmit(data) {
+        // omdat onSubmit meerdere keren kan worden aangeroepen, beginnen we altijd met een "schone" lei (geen errors)
+        setError('');
+        toggleLoading(true);
+
         console.log(data);
+
+        try {
+            const result = await axios.post('http://localhost:3000/register', {
+                email: data.email,
+                password: data.password,
+                username: data.username,
+            });
+
+            // als deze console.log wordt uitgevoerd is alles goedgegaan, want we zijn niet naar het catch blok gesprongen
+            // in de console zie je de gebruikelijke respons en daarin ook 'status: 201'
+            console.log(result);
+
+            toggleRegisterSuccess(true);
+            setTimeout(() => {
+                history.push('/login');
+            }, 2000);
+        } catch (e) {
+            console.error(e);
+            // op het error (e) object zit altijd een message property, maar die kan wat abstract zijn. Daarom extra text:
+            setError(`Het registeren is mislukt. Probeer het opnieuw (${e.message})`);
+        }
+        toggleLoading(false);
     }
 
     return (
+        <>
         <div className="main-registration-container">
             <div className="registration-form-container">
                 <h1 className="registreren-h1">Registreren</h1>
-                <form className="registration-form" onSubmit={handleSubmit(onFormSubmit)}>
+                <form className="registration-form" onSubmit={handleSubmit(onSubmit)}>
                     <div className="firstname-wrapper">
                         <label htmlFor="firstname-registration" id="firstname">
                         <input type="text" placeholder="Voornaam.." id="firstname-registration" {...register("voornaam", {required: true})}/>
@@ -55,11 +86,14 @@ function Registration() {
                     </div>
                     <div className="register-already-registered">
                         <Link to="/login" style={{color: 'white',textDecoration: 'none'}}>Al een account? Log in!</Link>
-                        <button type="submit">Registreer</button>
+                        <button type="submit" disabled={loading} >{loading ? 'Registreer' : 'Maak account aan'}</button>
                     </div>
+                    {registerSuccess === true &&  <p>Registeren is gelukt! Je wordt nu doorgestuurd naar de inlog pagina!</p>}
+                    {error && <p className="error-message">{error}</p>}
                 </form>
             </div>
         </div>
+        </>
     );
 }
 
