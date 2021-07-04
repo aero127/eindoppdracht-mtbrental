@@ -26,8 +26,8 @@ import Location from "./pages/Location";
 import Contact from "./pages/Contact";
 import ScrollToTop from "./components/ScrollToTop";
 import Booking from "./pages/Booking";
-import { BookingProvider } from './BookingContext';
 import Profile from './pages/Profile';
+import CheckBooking from "./pages/checkBooking";
 import {
     BrowserRouter as Router,
     Switch,
@@ -38,7 +38,6 @@ import {
 function App() {
   return (
       <>
-      <BookingProvider>
 
           <ScrollToTop/>
       <Header
@@ -46,6 +45,9 @@ function App() {
       mtblogo={mtblogo}
       />
           <Switch>
+              <Route exact path='/checkbooking'>
+                  <CheckBooking/>
+              </Route>
               <Route exact path='/profile'>
                   <Profile/>
               </Route>
@@ -93,8 +95,6 @@ function App() {
           background_footer={background_footer}
       />
 
-
-      </BookingProvider>
       </>
   );
 }

@@ -9,12 +9,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider, {AuthContext} from "./context/AuthContext";
+import {BookingProvider} from './BookingContext';
 
 ReactDOM.render(
   <React.StrictMode>
       <Router>
           <AuthContextProvider>
+              <BookingProvider>
     <App />
+                  </BookingProvider>
           </AuthContextProvider>
       </Router>
   </React.StrictMode>,

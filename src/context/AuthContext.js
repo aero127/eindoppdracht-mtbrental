@@ -5,23 +5,21 @@ import { useHistory } from 'react-router-dom';
 
 export const AuthContext = createContext({});
 
-// STAPPENPLAN CONTEXT INRICHTEN (3)
-// - [x] Bedenk welke data je in de context beschikbaar moet stellen
-// - [x] Maak de lege functies voor login en logOut
-// - [x] Maak de state aan voor de gebruikersdata en de statusdata (user => null en status => 'pending')
-// - [x] Maak ook alvast een useEffect functie die de status op 'done' zet als de app gerefreshed wordt (mounting cycle)
-// - [x] Zorg ervoor dat we alleen de applicatie (dus de children) laten zien als de status op 'done' staat
-// - [x] Plaats de state en lege functies in het data object
 
 function AuthContextProvider({ children }) {
     const [ authState, setAuthState ] = useState({
         user: null,
         status: 'pending',
     })
+    // const [tokenValidation, setTokenValidation] =  useState(false);
 
     const history = useHistory();
 
-    function isTokenValid(jwtToken) {
+    function isTokenValid() {
+        const jwtToken = localStorage.getItem('token');
+
+        if(!jwtToken) return false;
+
         const decodedToken = jwt_decode(jwtToken);
         const expirationUnix = decodedToken.exp; // let op: dit is een UNIX timestamp
 
@@ -36,8 +34,10 @@ function AuthContextProvider({ children }) {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-
-        if(!authState.user && token && isTokenValid(token)) {
+        // if (token && isTokenValid()) {
+        //     setTokenValidation(true);
+        // }
+        if(!authState.user && isTokenValid()) {
             const decodedToken = jwt_decode(token);
 
             fetchUserData(token, decodedToken.sub);
@@ -50,21 +50,7 @@ function AuthContextProvider({ children }) {
 
     }, []);
 
-    // STAPPENPLAN CONTEXT LOGIN LOGICA (6)
-    // 1. [x] Zorg ervoor dat de inlogfunctie uit de context de JWT token kan ontvangen
-    // 2. [x] Zet de token in de local storage
-    // 3. [x] Haal alle belangrijke informatie uit de token (dit is voor iedere situatie anders! Sommige backends sturen direct de gebruikersdata mee terug!)
-    //    - [x] Installeer jwt-decode
-    //    - [x] Importeer jwt-decode
-    //    - [x] Decode de token en en haal de user id eruit (die hebben we in ons geval nodig voor de gebruikersdata)
-    // 4. [x] Haal de gebruikersgegevens op
-    //    - [x] Importeer axios
-    //    - [x] Maak een aparte asynchrone functie (deze hebben we straks vaker nodig!)
-    //    - [x] Roep die functie aan vanuit de login functie
-    //    - [x] Maak een try / catch blok
-    //    - [x] In de try: maak een axios GET request naar het eindpoint http://localhost:3000/600/users/${id} en stuur de token mee
-    //    - [x] De data die we terugkrijgen zetten we in de state, en daarmee ook in de context (user: al die data en status: 'done')
-    //    - [x] Link gebruiker door naar de profielpagina
+
 
     function login(jwtToken) {
         console.log(jwtToken)
@@ -77,8 +63,9 @@ function AuthContextProvider({ children }) {
     }
 
     async function fetchUserData(token, id) {
+        console.log(token)
         try {
-            const result = await axios.get(`http://localhost:3000/600/users/${id}`, {
+            const result = await axios.get(`http://localhost:15425/authenticated`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
@@ -88,10 +75,11 @@ function AuthContextProvider({ children }) {
 
             setAuthState({
                 user: {
-                    username: result.data.username,
+
+                    voornaam: result.data.voornaam,
+                    achternaam: result.data.achternaam,
                     email: result.data.email,
                     id: result.data.id,
-                    country: result.data.country,
                     // als je ook rollen hebt, plaats je die er ook bij!
                 },
                 status: 'done',
@@ -104,6 +92,9 @@ function AuthContextProvider({ children }) {
     }
 
     function logout() {
+        localStorage.removeItem("token");
+        setAuthState({user: null, status: "done"});
+        history.push("/");
         console.log('logout!');
     }
 
@@ -113,6 +104,7 @@ function AuthContextProvider({ children }) {
         ...authState,
         login: login,
         logout: logout,
+        isTokenValid: isTokenValid,
     };
 
     return (

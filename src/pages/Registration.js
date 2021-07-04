@@ -12,6 +12,7 @@ function Registration() {
     const [password, setPassword] =  useState(null)
     const history = useHistory();
 
+
     function validatePassword (value) {
         if (password !== value)
             return false;
@@ -24,10 +25,10 @@ function Registration() {
         console.log(data);
 
         try {
-            const result = await axios.post('http://localhost:3000/register', {
-                email: data.email,
-                password: data.password,
+            const result = await axios.post('http://localhost:15425/users/register', {
                 username: data.username,
+                password: data.password,
+                email: data.email
             });
 
             // als deze console.log wordt uitgevoerd is alles goedgegaan, want we zijn niet naar het catch blok gesprongen
@@ -53,14 +54,14 @@ function Registration() {
                 <h1 className="registreren-h1">Registreren</h1>
                 <form className="registration-form" onSubmit={handleSubmit(onSubmit)}>
                     <div className="firstname-wrapper">
-                        <label htmlFor="firstname-registration" id="firstname">
-                        <input type="text" placeholder="Voornaam.." id="firstname-registration" {...register("voornaam", {required: true})}/>
-                        {errors.voornaam && errors.voornaam.type === "required" && <span className="errormessage-register">Dit veld is verplicht.</span>}
+                        <label htmlFor="firstname-registration" id="username">
+                        <input type="text" placeholder="Gebruikersnaam.." id="firstname-registration" {...register("username", {required: true})}/>
+                        {errors.username && errors.username.type === "required" && <span className="errormessage-register">Dit veld is verplicht.</span>}
                     </label>
-                        <label htmlFor="lastname-registration" id="lastname">
-                        <input type="text" placeholder="Achternaam.." id="lastname-registration" {...register("achternaam", {required: true})}/>
-                        {errors.achternaam && errors.achternaam.type === "required" && <span className="errormessage-register">Dit veld is verplicht.</span>}
-                    </label>
+                    {/*    <label htmlFor="lastname-registration" id="lastname">*/}
+                    {/*    <input type="text" placeholder="Achternaam.." id="lastname-registration" {...register("achternaam", {required: true})}/>*/}
+                    {/*    {errors.achternaam && errors.achternaam.type === "required" && <span className="errormessage-register">Dit veld is verplicht.</span>}*/}
+                    {/*</label>*/}
                     <label htmlFor="email-registration" id="email-registration">
                         <input type="text" placeholder="E-mail.." id="email-registration" {...register("email", {required: true, pattern: {
                                 value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,

@@ -5,14 +5,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import {useForm, Controller} from "react-hook-form";
 import SelectComponent from '../components/SelectComponent'
 import {BookingContext} from "../BookingContext";
+import {useHistory} from 'react-router-dom'
 import moment from "moment";
 
 const Booking = () => {
-    const [duration, setDuration] = useState('');
+    const [price, setPrice] = useState(0);
     const {booking, setBooking} = useContext(BookingContext);
     const [bookingAdded, setBookingAdded] = useState(false);
     const [checkBooking, setCheckBooking] = useState(false);
     const { handleSubmit, formState: { errors }, register, watch, control } = useForm();
+    const history = useHistory();
 
     // hier komt een axios request naar de backend die beschikbare tijdsloten ophaalt uit de api
     // waarschijnlijk .map functie door de array itereren
@@ -32,13 +34,14 @@ const Booking = () => {
     // hier komt een axios request naar de backend die beschikbare fietsen ophaalt uit de api
     // waarschijnlijk .map functie door de array itereren
     const optionsBikes = [
-        { value: 'MTB26', label: 'MTB 26 inch', isDisabled: false, price3hours: 20, price1day: 25, price1week: 99, id: 1},
-        { value: 'MTB29', label: 'MTB 29 inch', isDisabled: false, id: 2},
-        { value: 'MTB26FS', label: 'MTB 26 inch Full Suspension', isDisabled: false, id: 3},
-        { value: 'MTB29FS', label: 'MTB 29 inch Full Suspension', isDisabled: false, id: 4},
-        { value: 'MTBKids', label: 'Kinder MTB', isDisabled: false, id: 5},
-        { value: 'E-MTB', label: 'Elektrische MTB', isDisabled: false, id: 6}
+        { value: 'MTB26', label: 'MTB 26 inch', isDisabled: false, price1day: 25, id: 1},
+        { value: 'MTB29', label: 'MTB 29 inch', isDisabled: false, price1day: 32, id: 2},
+        { value: 'MTB26FS', label: 'MTB 26 inch Full Suspension', isDisabled: false, price1day: 37, id: 3},
+        { value: 'MTB29FS', label: 'MTB 29 inch Full Suspension', isDisabled: false, price1day: 45, id: 4},
+        { value: 'MTBKids', label: 'Kinder MTB', isDisabled: false, price1day: 25, id: 5},
+        { value: 'E-MTB', label: 'Elektrische MTB', isDisabled: false, price1day: 49, id: 6}
     ]
+
 
     function onSubmit(data) {
         console.log(data)
@@ -60,6 +63,18 @@ const Booking = () => {
         console.log((booking[0].dateinput).toString())
         /*        console.log(moment(booking.dateinput).format("DD-MM-YYYY"))
                 console.log(dater);*/
+        if (booking[0].rentduration === "3hours") {
+            setPrice(20)
+            console.log('hier kom ik langs')
+        }
+        else if (booking[0].rentduration === "1day") {
+            setPrice(25)
+        }
+        else if (booking[0].rentduration === "1week") {
+            setPrice(99)
+        }
+        console.log(price);
+        history.push('/checkbooking')
         setCheckBooking(true);
     }
 

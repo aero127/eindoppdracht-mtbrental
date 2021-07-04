@@ -14,9 +14,9 @@ function Login() {
     async function onSubmit(data) {
         console.log(data);
         try {
-            const result = await axios.post('http://localhost:3000/login', data);
+            const result = await axios.post('http://localhost:15425/authenticate', data);
             console.log(result);
-            login(result.data.accessToken);
+            login(result.data.jwt);
         } catch(e) {
             console.error(e, "Kapoet!");
         }
@@ -29,14 +29,10 @@ function Login() {
         <div className="login-container">
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 <h2>Inloggen</h2>
-                <label htmlFor="emailadres" id="emailadres">
-                    Email adres:
-                    <input type="text" placeholder=" Email-adres.." id="emailadres" {...register("email", {required: true, pattern: {
-                        value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                        message: "Geen geldig email adres"
-
-                }})} /><br/>
-                    {errors.emailadres && <span className="errormessage">Voer een geldig email adres in</span>}
+                <label htmlFor="username" id="username">
+                    Gebruikersnaam:
+                    <input type="text" placeholder=" Username.." id="username" {...register("username")} /><br/>
+                    {errors.username && <span className="errormessage">Dit is een verplicht veld</span>}
                 </label>
 
                 <label htmlFor="password" id="password">
