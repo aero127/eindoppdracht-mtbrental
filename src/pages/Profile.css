@@ -18,3 +18,7 @@
 .profile-container p {
     font-size: 20px;
 }
+
+.userlist-container ul li {
+    list-style: none;
+}

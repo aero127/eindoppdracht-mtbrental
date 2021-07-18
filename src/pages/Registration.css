@@ -64,10 +64,22 @@ input {
     flex-wrap: wrap;
     max-width: 170px;
     position: relative;
-    bottom: 50px;
 }
 
 .register-already-registered button {
     position: relative;
     top: 20px;
+}
+
+.checkbox-newsletter {
+    display: flex;
+    flex-direction: row;
+    font-size: 10px;
+    bottom: 15px;
+}
+.newsletter-signup {
+    bottom: 38px;
+    display: flex;
+    position: relative;
+    left: 25px;
 }

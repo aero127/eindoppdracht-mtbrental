@@ -23,7 +23,7 @@ function Header({ background, title, mtblogo }) {
                             <li><FaUser color="white"/><NavLink to="/login">Inloggen</NavLink></li>
                         </>
                     ) : (
-                        <li><FaUser color="white"/><NavLink to="/" onClick={logout}>Uitloggen</NavLink></li>
+                        <li><FaUser color="white"/><NavLink to="/profile" >Mijn gegevens</NavLink></li>
                         )}
                 </ul>
             </div>

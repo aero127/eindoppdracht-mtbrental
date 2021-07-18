@@ -7,39 +7,45 @@ import SelectComponent from '../components/SelectComponent'
 import {BookingContext} from "../BookingContext";
 import {useHistory} from 'react-router-dom'
 import moment from "moment";
+import axios from "axios";
+import { AuthContext } from '../context/AuthContext';
+
 
 const Booking = () => {
+    const [loading, toggleLoading] = useState(false);
+    const [error, setError] = useState('');
     const [price, setPrice] = useState(0);
     const {booking, setBooking} = useContext(BookingContext);
     const [bookingAdded, setBookingAdded] = useState(false);
     const [checkBooking, setCheckBooking] = useState(false);
     const { handleSubmit, formState: { errors }, register, watch, control } = useForm();
     const history = useHistory();
+    const { user } = useContext(AuthContext);
 
     // hier komt een axios request naar de backend die beschikbare tijdsloten ophaalt uit de api
     // waarschijnlijk .map functie door de array itereren
     const optionsStartTime = [
-        { value: '09:30', label: '⌚09:30', isDisabled: true, },
+        { value: '09:30', label: '⌚09:30', isDisabled: false, },
         { value: '10:00', label: '⌚10:00', isDisabled: false, },
         { value: '10:30', label: '⌚10:30', isDisabled: false, },
         { value: '11:00', label: '⌚11:00', isDisabled: false, },
         { value: '11:30', label: '⌚11:30', isDisabled: false, },
-        { value: '12:00', label: '⌚12:00', isDisabled: true, },
-        { value: '12:30', label: '⌚12:30', isDisabled: true, },
-        { value: '13:00', label: '⌚13:00', isDisabled: true, },
-        { value: '13:30', label: '⌚13:30', isDisabled: true, },
-        { value: '14:00', label: '⌚14:00', isDisabled: true, },
-        { value: '13:30', label: '⌚14:30', isDisabled: true, },
+        { value: '12:00', label: '⌚12:00', isDisabled: false, },
+        // { value: '12:30', label: '⌚12:30', isDisabled: true, },
+        // { value: '13:00', label: '⌚13:00', isDisabled: true, },
+        // { value: '13:30', label: '⌚13:30', isDisabled: true, },
+        // { value: '14:00', label: '⌚14:00', isDisabled: true, },
+        // { value: '13:30', label: '⌚14:30', isDisabled: true, },
     ]
     // hier komt een axios request naar de backend die beschikbare fietsen ophaalt uit de api
     // waarschijnlijk .map functie door de array itereren
     const optionsBikes = [
-        { value: 'MTB26', label: 'MTB 26 inch', isDisabled: false, price1day: 25, id: 1},
-        { value: 'MTB29', label: 'MTB 29 inch', isDisabled: false, price1day: 32, id: 2},
-        { value: 'MTB26FS', label: 'MTB 26 inch Full Suspension', isDisabled: false, price1day: 37, id: 3},
-        { value: 'MTB29FS', label: 'MTB 29 inch Full Suspension', isDisabled: false, price1day: 45, id: 4},
-        { value: 'MTBKids', label: 'Kinder MTB', isDisabled: false, price1day: 25, id: 5},
-        { value: 'E-MTB', label: 'Elektrische MTB', isDisabled: false, price1day: 49, id: 6}
+        { value: 1, label: 'MTB 26 inch', isDisabled: false, price1day: 25, id: 1},
+        { value: 2, label: 'MTB 29 inch', isDisabled: false, price1day: 32, id: 2},
+        { value: 3, label: 'MTB 26 inch Full Suspension', isDisabled: false, price1day: 37, id: 3},
+        { value: 4, label: 'MTB 29 inch Full Suspension', isDisabled: false, price1day: 45, id: 4},
+        { value: 5, label: 'Kinder MTB', isDisabled: false, price1day: 25, id: 5},
+        { value: 6, label: 'Elektrische MTB', isDisabled: false, price1day: 49, id: 6}
     ]
 
 
@@ -58,22 +64,54 @@ const Booking = () => {
 
     }
 
-    function finalizeBooking(data) {
+    async function finalizeBooking(data) {
+        setError('');
+        toggleLoading(true);
+        try {
+            const result = await axios.post('http://localhost:15425/bookings', {
+                // date: moment(booking[0].dateinput).toISOString(),
+                // rentDuration: booking[0].rentduration,
+                startTime: booking[0].starttime,
+                // bikeId: 1
+               // startTime: "10:00",
+                date: (booking[0].dateinput).toISOString(),
+                username: user.username,
+                bikeId: booking[0].bike,
+                amount: booking[0].amount,
+                helmet: booking[0].checkboxhelmet,
+                spdPedals: booking[0].checkboxspd,
+            });
+            console.log(result.data);
+            // als deze console.log wordt uitgevoerd is alles goedgegaan, want we zijn niet naar het catch blok gesprongen
+            // in de console zie je de gebruikelijke respons en daarin ook 'status: 201'
+            //console.log(moment(booking[0].dateinput).toString());
+
+
+            setTimeout(() => {
+                history.push('/');
+            }, 2000);
+        } catch (e) {
+            console.error(e);
+            // op het error (e) object zit altijd een message property, maar die kan wat abstract zijn. Daarom extra text:
+            setError(`De booking is mislukt. Probeer het opnieuw (${e.message})`);
+        }
+        toggleLoading(false);
+
         console.log('dit moet naar de backend: ', booking);
-        console.log((booking[0].dateinput).toString())
+        console.log(moment(booking[0].dateinput).toISOString())
         /*        console.log(moment(booking.dateinput).format("DD-MM-YYYY"))
                 console.log(dater);*/
-        if (booking[0].rentduration === "3hours") {
-            setPrice(20)
-            console.log('hier kom ik langs')
-        }
-        else if (booking[0].rentduration === "1day") {
-            setPrice(25)
-        }
-        else if (booking[0].rentduration === "1week") {
-            setPrice(99)
-        }
-        console.log(price);
+        // if (booking[0].rentduration === "3hours") {
+        //     setPrice(20)
+        //     console.log('hier kom ik langs')
+        // }
+        // else if (booking[0].rentduration === "1day") {
+        //     setPrice(25)
+        // }
+        // else if (booking[0].rentduration === "1week") {
+        //     setPrice(99)
+        // }
+        // console.log(price);
         history.push('/checkbooking')
         setCheckBooking(true);
     }
@@ -93,10 +131,11 @@ const Booking = () => {
                         {booking.map((bookings) => {
                             return <div key={bookings.id}>
                                 <h2 key={bookings.id} className="reservation-overview">
-                                    <p>datum: {(bookings.dateinput).toString()}</p>
+                                    <p>datum: {(bookings.dateinput).toISOString()}</p>
                                     <p key={bookings.id}>starttijd: {bookings.starttime}</p>
                                     <p key={bookings.id}>soort MTB: {bookings.bike}</p>
-                                    <p key={bookings.id}>termijn: {bookings.rentduration}</p>
+                                    <p key={bookings.id}>aantal: {bookings.amount}</p>
+                                    {/*<p key={bookings.id}>termijn: {bookings.rentduration}</p>*/}
                                     <p key={bookings.id}>helm: {bookings.checkboxhelmet}</p>
                                     <p key={bookings.id}>spd: {bookings.checkboxspd}</p>
                                 </h2>
@@ -138,20 +177,20 @@ const Booking = () => {
                                         />
                                     )}
                                 />
-                                <h3>Huur termijn:</h3>
+                                <h3>Huur termijn is 1 dag.</h3>
                                 <div className="rent-duration">
-                                    <label htmlFor="3hours" id="3hours">
-                                        3 uren
-                                        <input type="radio" value="3hours" {...register("rentduration", {required: true, price: 20})}/>
-                                    </label>
-                                    <label htmlFor="1day" id="1day">
-                                        een dag
-                                        <input type="radio" value="1day" {...register("rentduration", {required: true, price: 25})}/>
-                                    </label>
-                                    <label htmlFor="1week" id="1week">
-                                        een week
-                                        <input type="radio" value="1week" {...register("rentduration", {required: true, price: 99})}/>
-                                    </label>
+                                    {/*<label htmlFor="3hours" id="3hours">*/}
+                                    {/*    3 uren*/}
+                                    {/*    <input type="radio" value="3hours" {...register("rentduration", {required: true, price: 20})}/>*/}
+                                    {/*</label>*/}
+                                    {/*<label htmlFor="1day" id="1day">*/}
+                                    {/*    een dag*/}
+                                    {/*    <input type="radio" value="1day" {...register("rentduration", {required: true, price: 25})}/>*/}
+                                    {/*</label>*/}
+                                    {/*<label htmlFor="1week" id="1week">*/}
+                                    {/*    een week*/}
+                                    {/*    <input type="radio" value="1week" {...register("rentduration", {required: true, price: 99})}/>*/}
+                                    {/*</label>*/}
                                 </div>
                                 {/*                            {console.log(startDate)}
                             {console.log(moment(startDate).format('L'))}*/}
@@ -171,18 +210,24 @@ const Booking = () => {
                                     placeholder="Kies hier een fiets"
                                     register={register("bike")}
                                 />
-
+                                <div className="booking-amount-bikes">
+                                    Aantal fietsen:
+                                    <label className="input-amount-bikes">
+                                        <input type="number" name="input-amount-bikes" id="input-amount-bikes" defaultValue="1" {...register("amount")}/>
+                                        {errors.numbers && errors.numbers.type === "required" && <span className="errorMessage">Je moet hier een aantal opgeven</span>}
+                                    </label>
+                                </div>
                                 <div className="booking-helmet-container">
                                     Helm erbij huren ?
                                     <label className="checkbox-helmet">
-                                        <input type="checkbox" name="checkbox-helmet" id="checkbox-helmet" value="Ja" {...register("checkboxhelmet")}/>
+                                        <input type="checkbox" name="checkbox-helmet" id="checkbox-helmet" value={true} defaultChecked={true} {...register("checkboxhelmet")}/>
                                         {errors.checkBox && errors.checkBox.type === "required" && <span className="errorMessage">Je moet hier een vinkje zetten</span>}
                                     </label> ja
                                 </div>
                                 <div className="booking-spd-container">
                                     SPD pedalen ?
                                     <label className="checkbox-spd">
-                                        <input type="checkbox" name="checkboxspd" id="checkbox-spd" value="Ja" {...register("checkboxspd")}/>
+                                        <input type="checkbox" name="checkboxspd" id="checkbox-spd" value={true} defaultChecked={true} {...register("checkboxspd")}/>
                                         {errors.checkBox && errors.checkBox.type === "required" && <span className="errorMessage">Je moet hier een vinkje zetten</span>}
                                     </label> ja
                                 </div>

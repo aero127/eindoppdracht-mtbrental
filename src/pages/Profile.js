@@ -6,6 +6,8 @@ import './Profile.css'
 
 function Profile() {
     const [privateContent, setPrivateContent] = useState({});
+    const [users, setUsers] = useState([]);
+    const { logout } = useContext(AuthContext);
 
     const { user } = useContext(AuthContext);
     console.log(user); // geeft { user: { username: 'string waarde', email: 'string waarde', id: 'string waarde', country: 'string waarde' }
@@ -15,13 +17,13 @@ function Profile() {
 
         async function getPrivateContent() {
             try {
-                const result = await axios.get('http://localhost:3000/660/private-content', {
+                const result = await axios.get('http://localhost:15425/users', {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     }
                 });
-
+                setUsers(result.data)
                 console.log(result.data);
                 setPrivateContent(result.data);
             } catch(e) {
@@ -36,33 +38,58 @@ function Profile() {
         <>
             <div className="profile-page">
                 <div className="profile-container">
-            <h1>Profielpagina</h1>
-            <section>
-                <h2>Gegevens</h2>
-                {user &&
+                    {console.log(user)}
+            <h1>Mijn gegevens</h1>
+            {/*<section>*/}
+                {user.authority === "ROLE_USER" ? (
                 <>
-                    <p><strong>Voornaam:</strong> {user.voornaam}</p>
-                    <p><strong>Achternaam:</strong> {user.achternaam}</p>
-                    <p><strong>Email:</strong> {user.email}</p>
+                    <h2>Gegevens</h2>
+                    <p>Welkom terug <strong>{user.username}!</strong></p>
+                    <p>Volledige naam: <strong>{user.voornaam} {user.achternaam}</strong></p>
+                    <p>Jouw emailadres is: <strong>{user.email}</strong></p>
                 </>
-                }
-                <form method="post" action="http://localhost:15425/api/users/upload/files/" encType="multipart/form-data">
+                    ) : (
+                        <></>
+                )}
+                {/*}*/}
+                {user.authority === "ROLE_ADMIN" ? (
+                    <>
+                        <div className="userlist-container">
+                        <h3>Lijst met gebruikers:</h3>
+                        <ul>
+                            {users.map(user => {
+                                return <li>{user.username}, {user.firstName} {user.lastName}, {user.email}</li>
+                            })}
+                        </ul>
+                        </div>
+                    </>
+                ) : (
+                    <></>
+                )}
+                <form method="post" action="http://localhost:15425/api/upload/files/" encType="multipart/form-data">
                     <div>
                         <h3>Voor het huren van een elektrische MTB is een kopie van een ID bewijs vereist!</h3>
                         <label>ID kopie upload</label> <input type="file" id="file" name="file"/>
                     </div>
+                    <div>
+                        <label>Title</label> <input type="text" id="title" name="title"/>
+                    </div>
+                    <div>
+                        <label>Description</label> <input type="text" id="description" name="description"/>
+                    </div>
                     <input type="submit" value="Uploaden"/>
                 </form>
-            </section>
+            {/*</section>*/}
 
             {privateContent &&
             <section>
-                <h2>Afgeschermde content voor ingelogde gebruikers</h2>
-                <h4>{privateContent.title}</h4>
-                <p>{privateContent.content}</p>
+                {/*<h2>Afgeschermde content voor ingelogde gebruikers</h2>*/}
+                {/*<h4>{privateContent.name}</h4>*/}
+                {/*<p>{privateContent.content}</p>*/}
             </section>
             }
             <p>Terug naar de <Link to="/">Homepagina</Link></p>
+                    <button id="logout-button" onClick={logout}>Uitloggen</button>
             </div>
             </div>
             </>

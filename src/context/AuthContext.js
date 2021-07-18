@@ -65,7 +65,7 @@ function AuthContextProvider({ children }) {
     async function fetchUserData(token, id) {
         console.log(token)
         try {
-            const result = await axios.get(`http://localhost:15425/authenticated`, {
+            const result = await axios.get(`http://localhost:15425/users/${id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
@@ -76,10 +76,12 @@ function AuthContextProvider({ children }) {
             setAuthState({
                 user: {
 
-                    voornaam: result.data.voornaam,
-                    achternaam: result.data.achternaam,
+                    username: result.data.username,
+                    voornaam: result.data.firstName,
+                    achternaam: result.data.lastName,
                     email: result.data.email,
-                    id: result.data.id,
+                    //id: result.data.id,
+                    authority: result.data.authorities[0].authority
                     // als je ook rollen hebt, plaats je die er ook bij!
                 },
                 status: 'done',
