@@ -1,23 +1,39 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import './Profile.css'
+import moment, {isDate} from "moment";
+import {Controller, useForm} from "react-hook-form";
+import DatePicker from "react-datepicker";
+
 
 function Profile() {
     const [privateContent, setPrivateContent] = useState({});
     const [users, setUsers] = useState([]);
+    // const [searchDate, setSearchDate] = useState([])
+    const [bookings, setBookings] = useState([]);
     const { logout } = useContext(AuthContext);
-
+    const { handleSubmit, formState: { errors }, register, watch, control } = useForm();
+    let searchDate = "";
     const { user } = useContext(AuthContext);
     console.log(user); // geeft { user: { username: 'string waarde', email: 'string waarde', id: 'string waarde', country: 'string waarde' }
+
+
+    function onSubmit(data) {
+        console.log(data)
+        searchDate = (moment(data.dateinput).format().slice(0,-6))
+        console.log(searchDate);
+        console.log(`http://localhost:15425/bookings/?date=${searchDate}`)
+
+    }
 
     useEffect(() => {
         const token = localStorage.getItem('token');
 
         async function getPrivateContent() {
             try {
-                const result = await axios.get('http://localhost:15425/users', {
+               const result = await axios.get('http://localhost:15425/users', {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
@@ -25,6 +41,7 @@ function Profile() {
                 });
                 setUsers(result.data)
                 console.log(result.data);
+                // setBookings(result.data)
                 setPrivateContent(result.data);
             } catch(e) {
                 console.error(e);
@@ -33,6 +50,10 @@ function Profile() {
 
         getPrivateContent();
     }, []);
+
+
+
+
 
     return (
         <>
@@ -47,6 +68,9 @@ function Profile() {
                     <p>Welkom terug <strong>{user.username}!</strong></p>
                     <p>Volledige naam: <strong>{user.voornaam} {user.achternaam}</strong></p>
                     <p>Jouw emailadres is: <strong>{user.email}</strong></p>
+                    {bookings.map(booking => {
+                        return <li>ID: {booking.id} Datum: {booking.date} Starttijd: {booking.startTime}</li>
+                    })}
                 </>
                     ) : (
                         <></>
@@ -54,12 +78,33 @@ function Profile() {
                 {/*}*/}
                 {user.authority === "ROLE_ADMIN" ? (
                     <>
+                    <form className="booking-form" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="choose-date-bookings">
+                            <Controller
+                                control={control}
+                                name='dateinput'
+                                render={({ field }) => (
+                                    <DatePicker
+                                        placeholderText='Kies hier een datum'
+                                        onChange={(date) => field.onChange(date)}
+                                        selected={field.value}
+                                        dateFormat="dd/MM/yyyy"
+                                        minDate={new Date()}
+                                        required
+                                    />
+                                )}
+                            />
+                        </div>
+                        <button type="submit">zoek op deze datum</button>
+                        </form>
                         <div className="userlist-container">
-                        <h3>Lijst met gebruikers:</h3>
+                        <h3>Lijst met users:</h3>
                         <ul>
                             {users.map(user => {
-                                return <li>{user.username}, {user.firstName} {user.lastName}, {user.email}</li>
+                                return <li>{user.username}</li>
                             })}
+
+                            boekingen zoeken op datum <Link to="/zoeken-op-datum">HIER!</Link>
                         </ul>
                         </div>
                     </>

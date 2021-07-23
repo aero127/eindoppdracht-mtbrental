@@ -28,6 +28,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Booking from "./pages/Booking";
 import Profile from './pages/Profile';
 import CheckBooking from "./pages/checkBooking";
+import SearchOnDate from "./adminpages/SearchOnDate"
 import {
     BrowserRouter as Router,
     Switch,
@@ -45,6 +46,9 @@ function App() {
       mtblogo={mtblogo}
       />
           <Switch>
+              <Route exact path='/zoeken-op-datum'>
+                  <SearchOnDate/>
+              </Route>
               <Route exact path='/checkbooking'>
                   <CheckBooking/>
               </Route>

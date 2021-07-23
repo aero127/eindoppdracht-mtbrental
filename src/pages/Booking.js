@@ -21,6 +21,8 @@ const Booking = () => {
     const { handleSubmit, formState: { errors }, register, watch, control } = useForm();
     const history = useHistory();
     const { user } = useContext(AuthContext);
+    const [availableBikes, setAvailableBikes] =  useState()
+
 
     // hier komt een axios request naar de backend die beschikbare tijdsloten ophaalt uit de api
     // waarschijnlijk .map functie door de array itereren
@@ -49,6 +51,42 @@ const Booking = () => {
     ]
 
 
+    const [madebookings, setMadeBookings] = useState([]);
+    const token = localStorage.getItem('token');
+    let today = moment().startOf("day").format().slice(0,-6);
+    console.log(today)
+    let [dateSearch, setDateSearch] = useState(today)
+
+
+
+    function handleDateSelect(data) {
+        console.log(data)
+        setDateSearch(()=> dateSearch = moment(data).format().slice(0,-6))
+        console.log(dateSearch)
+        console.log(`http://localhost:15425/bookings/?date=${dateSearch}`)
+        fetchBookings(dateSearch)
+    }
+
+    async function fetchBookings(dateSearch) {
+        try {
+            const result = await axios.get(`http://localhost:15425/bookings/?date=${dateSearch}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            setMadeBookings(result.data)
+            console.log(dateSearch);
+            console.log(madebookings);
+            let bookedBikes = (madebookings.reduce((acc, booking) => acc + booking.amount, 0));
+            console.log(bookedBikes)
+            setAvailableBikes(250-bookedBikes)
+            console.log(availableBikes)
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     function onSubmit(data) {
         console.log(data)
         //voeg de boeking toe aan de array met boekingen
@@ -74,7 +112,7 @@ const Booking = () => {
                 startTime: booking[0].starttime,
                 // bikeId: 1
                // startTime: "10:00",
-                date: (booking[0].dateinput).toISOString(),
+                date: (moment(booking[0].dateinput).format().slice(0,-6)),
                 username: user.username,
                 bikeId: booking[0].bike,
                 amount: booking[0].amount,
@@ -88,7 +126,7 @@ const Booking = () => {
 
 
             setTimeout(() => {
-                history.push('/');
+                history.push('/profile');
             }, 2000);
         } catch (e) {
             console.error(e);
@@ -122,7 +160,7 @@ const Booking = () => {
 
     return (
         <div className="bookingpage-container">
-            <button className="reservation-button">Reserveringen ({booking.length})</button>
+            <button className="reservation-button">Aantal fietsen beschikbaar:{availableBikes}</button>
 
             <div className="check-booking">{checkBooking
                 ? <>
@@ -170,6 +208,7 @@ const Booking = () => {
                                         <DatePicker
                                             placeholderText='Kies hier een datum'
                                             onChange={(date) => field.onChange(date)}
+                                            onSelect={handleDateSelect}
                                             selected={field.value}
                                             dateFormat="dd/MM/yyyy"
                                             minDate={new Date()}
@@ -213,7 +252,7 @@ const Booking = () => {
                                 <div className="booking-amount-bikes">
                                     Aantal fietsen:
                                     <label className="input-amount-bikes">
-                                        <input type="number" name="input-amount-bikes" id="input-amount-bikes" defaultValue="1" {...register("amount")}/>
+                                        <input type="number" name="input-amount-bikes" id="input-amount-bikes" defaultValue="1" max="4" {...register("amount")}/>
                                         {errors.numbers && errors.numbers.type === "required" && <span className="errorMessage">Je moet hier een aantal opgeven</span>}
                                     </label>
                                 </div>
@@ -232,7 +271,7 @@ const Booking = () => {
                                     </label> ja
                                 </div>
 
-                                <button type="submit" className="booking-select-button">
+                                <button type="submit" disabled={availableBikes===0} className="booking-select-button">
                                     bevestigen
                                 </button>
                             </form>
