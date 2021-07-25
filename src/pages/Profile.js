@@ -13,6 +13,7 @@ function Profile() {
     const [users, setUsers] = useState([]);
     // const [searchDate, setSearchDate] = useState([])
     const [bookings, setBookings] = useState([]);
+    let [userBooking, setUserBooking] =  useState ([])
     const { logout } = useContext(AuthContext);
     const { handleSubmit, formState: { errors }, register, watch, control } = useForm();
     let searchDate = "";
@@ -33,16 +34,25 @@ function Profile() {
 
         async function getPrivateContent() {
             try {
-               const result = await axios.get('http://localhost:15425/users', {
+               const userresult = await axios.get('http://localhost:15425/users', {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     }
                 });
-                setUsers(result.data)
-                console.log(result.data);
+                setUsers(userresult.data)
+                console.log(userresult.data);
                 // setBookings(result.data)
-                setPrivateContent(result.data);
+                setPrivateContent(userresult.data);
+                const bookingresult = await axios.get(`http://localhost:15425/bookings/?username=${user.username}`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                console.log(bookingresult.data);
+                setUserBooking(()=> userBooking = bookingresult.data);
+                console.log(userBooking);
             } catch(e) {
                 console.error(e);
             }
@@ -68,8 +78,9 @@ function Profile() {
                     <p>Welkom terug <strong>{user.username}!</strong></p>
                     <p>Volledige naam: <strong>{user.voornaam} {user.achternaam}</strong></p>
                     <p>Jouw emailadres is: <strong>{user.email}</strong></p>
-                    {bookings.map(booking => {
-                        return <li>ID: {booking.id} Datum: {booking.date} Starttijd: {booking.startTime}</li>
+                    Mijn boekingen:
+                    {userBooking.map(booking => {
+                        return <li>ID: {booking.id} Datum: {moment(booking.date).format().slice(0,-15)} Starttijd: {booking.startTime} Fiets: {booking.bike.bikeName} Aantal: {booking.amount} Prijs: € {booking.price},-</li>
                     })}
                 </>
                     ) : (
@@ -113,7 +124,7 @@ function Profile() {
                 )}
                 <form method="post" action="http://localhost:15425/api/upload/files/" encType="multipart/form-data">
                     <div>
-                        <h3>Voor het huren van een elektrische MTB is een kopie van een ID bewijs vereist!</h3>
+                        <h3>Voor boekingen boven de 200 euro is een kopie van identificatie vereist.</h3>
                         <label>ID kopie upload</label> <input type="file" id="file" name="file"/>
                     </div>
                     <div>
@@ -128,6 +139,7 @@ function Profile() {
 
             {privateContent &&
             <section>
+
                 {/*<h2>Afgeschermde content voor ingelogde gebruikers</h2>*/}
                 {/*<h4>{privateContent.name}</h4>*/}
                 {/*<p>{privateContent.content}</p>*/}

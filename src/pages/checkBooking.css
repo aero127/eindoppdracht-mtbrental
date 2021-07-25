@@ -17,3 +17,6 @@
     flex-direction: column;
     align-items: center;
 }
+.reservation-overview p {
+    font-size: 25px;
+}

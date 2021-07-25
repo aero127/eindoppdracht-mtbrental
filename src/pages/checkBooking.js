@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {BookingContext} from "../BookingContext";
 import './checkBooking.css';
+import moment from "moment";
 
 
 function CheckBooking() {
@@ -11,16 +12,19 @@ function CheckBooking() {
         <div className="bookings-check">
             <>
                 <h3>
-                        check hier je booking
+                    {console.log(booking)}
+                        Je hebt het volgende geboekt
                         {booking.map((bookings) => {
                             return <div key={bookings.id}>
                                 <h2 key={bookings.id} className="reservation-overview">
-                                    <p>datum: {(bookings.dateinput).toString()}</p>
+                                    <p>datum: {(moment(bookings.dateinput).format().slice(0,-15))}</p>
                                     <p key={bookings.id}>starttijd: {bookings.starttime}</p>
-                                    <p key={bookings.id}>soort MTB: {bookings.bike}</p>
-                                    <p key={bookings.id}>termijn: {bookings.rentduration}</p>
+                                    <p key={bookings.id}>soort MTB: 26 inch MTB</p>
+                                    <p key={bookings.id}>aantal fietsen: {bookings.amount}</p>
+                                    <p key={bookings.id}>termijn: 1 dag</p>
                                     <p key={bookings.id}>helm: {bookings.checkboxhelmet}</p>
                                     <p key={bookings.id}>spd: {bookings.checkboxspd}</p>
+                                    <p key={bookings.id}>Prijs: €{(bookings.amount) * 35},-</p>
                                 </h2>
                             </div>
                         })}

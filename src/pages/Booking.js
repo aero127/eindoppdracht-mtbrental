@@ -24,6 +24,7 @@ const Booking = () => {
     const [availableBikes, setAvailableBikes] =  useState()
 
 
+
     // hier komt een axios request naar de backend die beschikbare tijdsloten ophaalt uit de api
     // waarschijnlijk .map functie door de array itereren
     const optionsStartTime = [
@@ -42,32 +43,33 @@ const Booking = () => {
     // hier komt een axios request naar de backend die beschikbare fietsen ophaalt uit de api
     // waarschijnlijk .map functie door de array itereren
     const optionsBikes = [
-        { value: 1, label: 'MTB 26 inch', isDisabled: false, price1day: 25, id: 1},
-        { value: 2, label: 'MTB 29 inch', isDisabled: false, price1day: 32, id: 2},
-        { value: 3, label: 'MTB 26 inch Full Suspension', isDisabled: false, price1day: 37, id: 3},
-        { value: 4, label: 'MTB 29 inch Full Suspension', isDisabled: false, price1day: 45, id: 4},
-        { value: 5, label: 'Kinder MTB', isDisabled: false, price1day: 25, id: 5},
-        { value: 6, label: 'Elektrische MTB', isDisabled: false, price1day: 49, id: 6}
+        { value: 1, label: 'MTB 26 inch, €35,- ps.', isDisabled: false, price1day: 25, id: 1},
+        { value: 2, label: 'MTB 29 inch', isDisabled: true, price1day: 32, id: 2},
+        { value: 3, label: 'MTB 26 inch Full Suspension', isDisabled: true, price1day: 37, id: 3},
+        { value: 4, label: 'MTB 29 inch Full Suspension', isDisabled: true, price1day: 45, id: 4},
+        { value: 5, label: 'Kinder MTB', isDisabled: true, price1day: 25, id: 5},
+        { value: 6, label: 'Elektrische MTB', isDisabled: true, price1day: 49, id: 6}
     ]
 
 
-    const [madebookings, setMadeBookings] = useState([]);
+    let [madebookings, setMadeBookings] = useState([]);
     const token = localStorage.getItem('token');
     let today = moment().startOf("day").format().slice(0,-6);
-    console.log(today)
+    // console.log(today)
     let [dateSearch, setDateSearch] = useState(today)
 
 
 
     function handleDateSelect(data) {
-        console.log(data)
+        // console.log(data)
         setDateSearch(()=> dateSearch = moment(data).format().slice(0,-6))
-        console.log(dateSearch)
-        console.log(`http://localhost:15425/bookings/?date=${dateSearch}`)
+        // console.log(dateSearch)
+        // console.log(`http://localhost:15425/bookings/?date=${dateSearch}`)
         fetchBookings(dateSearch)
     }
 
     async function fetchBookings(dateSearch) {
+        // console.log(dateSearch)
         try {
             const result = await axios.get(`http://localhost:15425/bookings/?date=${dateSearch}`, {
                 headers: {
@@ -75,20 +77,20 @@ const Booking = () => {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            setMadeBookings(result.data)
-            console.log(dateSearch);
-            console.log(madebookings);
+            // console.log(result.data)
+            setMadeBookings(madebookings = result.data);
+            // console.log(madebookings);
             let bookedBikes = (madebookings.reduce((acc, booking) => acc + booking.amount, 0));
-            console.log(bookedBikes)
+            // console.log(bookedBikes)
             setAvailableBikes(250-bookedBikes)
-            console.log(availableBikes)
+            // console.log(availableBikes)
         } catch (e) {
             console.error(e);
         }
     }
 
     function onSubmit(data) {
-        console.log(data)
+        // console.log(data)
         //voeg de boeking toe aan de array met boekingen
         setBooking([
             ...booking,
@@ -126,7 +128,7 @@ const Booking = () => {
 
 
             setTimeout(() => {
-                history.push('/profile');
+                // history.push('/profile');
             }, 2000);
         } catch (e) {
             console.error(e);
@@ -252,7 +254,7 @@ const Booking = () => {
                                 <div className="booking-amount-bikes">
                                     Aantal fietsen:
                                     <label className="input-amount-bikes">
-                                        <input type="number" name="input-amount-bikes" id="input-amount-bikes" defaultValue="1" max="4" {...register("amount")}/>
+                                        <input type="number" name="input-amount-bikes" id="input-amount-bikes" defaultValue="1" max="10" {...register("amount")}/>
                                         {errors.numbers && errors.numbers.type === "required" && <span className="errorMessage">Je moet hier een aantal opgeven</span>}
                                     </label>
                                 </div>
