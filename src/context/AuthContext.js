@@ -10,6 +10,7 @@ function AuthContextProvider({ children }) {
     const [ authState, setAuthState ] = useState({
         user: null,
         status: 'pending',
+        upload: null,
     })
     // const [tokenValidation, setTokenValidation] =  useState(false);
 
@@ -45,6 +46,7 @@ function AuthContextProvider({ children }) {
             setAuthState({
                 user: null,
                 status: 'done',
+                upload: null
             });
         }
 
@@ -81,10 +83,12 @@ function AuthContextProvider({ children }) {
                     achternaam: result.data.lastName,
                     email: result.data.email,
                     //id: result.data.id,
-                    authority: result.data.authorities[0].authority
+                    authority: result.data.authorities[0].authority,
+                   // identification: result.data.identification
                     // als je ook rollen hebt, plaats je die er ook bij!
                 },
                 status: 'done',
+                upload: result.data.identification,
             });
 
             history.push('/profile');
@@ -95,7 +99,7 @@ function AuthContextProvider({ children }) {
 
     function logout() {
         localStorage.removeItem("token");
-        setAuthState({user: null, status: "done"});
+        setAuthState({user: null, status: "done", upload: null});
         history.push("/");
         console.log('logout!');
     }

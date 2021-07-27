@@ -2,11 +2,17 @@ import React, {useContext} from 'react';
 import {BookingContext} from "../BookingContext";
 import './checkBooking.css';
 import moment from "moment";
+import { useHistory } from 'react-router-dom';
 
 
 function CheckBooking() {
  const {booking, setBooking} = useContext(BookingContext)
+ const history = useHistory();
 
+    function resetBooking() {
+     setBooking([]);
+     history.push("/");
+    }
     return (
         <div className="booking-check-page">
         <div className="bookings-check">
@@ -24,8 +30,16 @@ function CheckBooking() {
                                     <p key={bookings.id}>termijn: 1 dag</p>
                                     <p key={bookings.id}>helm: {bookings.checkboxhelmet}</p>
                                     <p key={bookings.id}>spd: {bookings.checkboxspd}</p>
-                                    <p key={bookings.id}>Prijs: €{(bookings.amount) * 35},-</p>
+                                    {bookings.checkboxhelmet ? <>
+                                        <p key={bookings.id}>Prijs: €{((bookings.amount) * 35) + ((bookings.amount) * 4)},-</p>
+                                        </> : <>
+                                            <p key={bookings.id}>Prijs: €{(bookings.amount) * 35},-</p>
+                                        </>
+                                        }
+
+
                                 </h2>
+                                <button onClick={resetBooking}>verder-></button>
                             </div>
                         })}
                     </h3>

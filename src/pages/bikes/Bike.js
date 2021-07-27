@@ -8,9 +8,9 @@ function Bike(props) {
     return (
         <div className="bike-page-container">
         <div className="bike-total">
-            <div className="bike-links-previous">
-                <Link to={props.previousBike} exact activeClassName="active-link"><FaArrowCircleLeft color="black" className="left-arrow-bikes"/></Link>
-            </div>
+            {/*<div className="bike-links-previous">*/}
+            {/*    <Link to={props.previousBike} exact activeClassName="active-link"><FaArrowCircleLeft color="black" className="left-arrow-bikes"/></Link>*/}
+            {/*</div>*/}
             <div className="bike-general">
                 <h1>{props.generalTitle}</h1>
                 <div className="bike-general-info">{props.generalInfo}</div>
@@ -34,9 +34,9 @@ function Bike(props) {
             </div>
             <div className="bike-also-available">{props.bikeAlsoAvailable}</div>
         </div>
-            <div className="bike-right-next">
-                <Link to={props.nextBike} exact activeClassName="active-link"><FaArrowCircleRight color="black" className="right-arrow-bikes"/></Link>
-            </div>
+            {/*<div className="bike-right-next">*/}
+            {/*    <Link to={props.nextBike} exact activeClassName="active-link"><FaArrowCircleRight color="black" className="right-arrow-bikes"/></Link>*/}
+            {/*</div>*/}
         </div>
         </div>
     );

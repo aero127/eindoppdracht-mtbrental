@@ -256,6 +256,7 @@ const Booking = () => {
                                     <label className="input-amount-bikes">
                                         <input type="number" name="input-amount-bikes" id="input-amount-bikes" defaultValue="1" max="10" {...register("amount")}/>
                                         {errors.numbers && errors.numbers.type === "required" && <span className="errorMessage">Je moet hier een aantal opgeven</span>}
+                                        {availableBikes === 0 ? <> <p className="no-available-bikes">Er zijn geen fietsen meer beschikbaar!</p> </>: <> </>}
                                     </label>
                                 </div>
                                 <div className="booking-helmet-container">

@@ -1,6 +1,6 @@
 .main-reservation-container {
     width: 1200px;
-    height: 700px;
+    height: 800px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -77,4 +77,9 @@
 
 .reservation-overview {
     color: black;
+}
+
+.no-available-bikes {
+    color: red;
+    font-size: 15px;
 }
