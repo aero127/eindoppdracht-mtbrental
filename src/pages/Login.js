@@ -7,15 +7,11 @@ import { AuthContext } from '../context/AuthContext';
 
 function Login() {
     const { handleSubmit, formState: { errors }, register } = useForm({ mode: 'onChange' });
-    //const alles = useContext(AuthContext);
-    //console.log(alles);
     const { login } = useContext(AuthContext);
 
     async function onSubmit(data) {
-        console.log(data);
         try {
             const result = await axios.post('http://localhost:15425/authenticate', data);
-            console.log(result);
             login(result.data.jwt);
         } catch(e) {
             console.error(e, "Kapoet!");

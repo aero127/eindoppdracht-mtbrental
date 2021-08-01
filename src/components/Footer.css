@@ -46,3 +46,13 @@
 .popular_locations ul .location-link span{
     font-size: 15px;
 }
+
+.location-link a {
+    color: white;
+    text-decoration: none;
+}
+
+.location-link:visited a {
+    color: white;
+    text-decoration: none;
+}

@@ -37,12 +37,6 @@
     height: 30px;
     font-weight: bold;
 }
-.rent-duration {
-    display: flex;
-    flex-direction: row;
-    width: 250px;
-    justify-content: center;
-}
 
 .react-datepicker__input-container {
     display: flex;
@@ -82,4 +76,10 @@
 .no-available-bikes {
     color: red;
     font-size: 15px;
+}
+
+.max-bikes-per-user {
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
 }

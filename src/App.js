@@ -27,7 +27,7 @@ import Contact from "./pages/Contact";
 import ScrollToTop from "./components/ScrollToTop";
 import Booking from "./pages/Booking";
 import Profile from './pages/Profile';
-import CheckBooking from "./pages/checkBooking";
+import CheckBooking from "./pages/CheckBooking";
 import SearchOnDate from "./adminpages/SearchOnDate"
 import {
     BrowserRouter as Router,

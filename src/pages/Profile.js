@@ -5,13 +5,11 @@ import { AuthContext } from '../context/AuthContext';
 import './Profile.css'
 import moment, {isDate} from "moment";
 import {Controller, useForm} from "react-hook-form";
-import DatePicker from "react-datepicker";
 
 
 function Profile() {
     const [privateContent, setPrivateContent] = useState({});
     const [users, setUsers] = useState([]);
-    // const [searchDate, setSearchDate] = useState([])
     const [bookings, setBookings] = useState([]);
     let [userBooking, setUserBooking] =  useState ([])
     const { logout } = useContext(AuthContext);
@@ -21,25 +19,16 @@ function Profile() {
     const { user } = useContext(AuthContext);
     const { upload } = useContext(AuthContext);
     const [succes, setSucces] = useState(false);
-    // const [fail, setFail] = useState(false);
-    console.log(user); // geeft { user: { username: 'string waarde', email: 'string waarde', id: 'string waarde', country: 'string waarde' }
 
 
     function onSubmit(data) {
-        console.log(data)
         searchDate = (moment(data.dateinput).format().slice(0,-6))
-        console.log(searchDate);
-        console.log(`http://localhost:15425/bookings/?date=${searchDate}`)
-
     }
 
     const formData = new FormData();
 
     const formSubmit = (data) => {
-        console.log(data)
         formData.append("file", data.identificationPath[0])
-        sendInfo(formData)
-        console.log(data.identificationPath[0])
     }
 
     async function sendInfo (formData) {
@@ -48,7 +37,6 @@ function Profile() {
             const result = await axios.post(`http://localhost:15425/users/${user.username}/license`, formData
             )
             if (result.status===200){setSucces(true)}
-            // else {setFail(true)}
         } catch (e) {
             console.log(console.error(e))
         }
@@ -68,7 +56,6 @@ function Profile() {
                     }
                 });
                 setUsers(userresult.data)
-                console.log(userresult.data);
                 // setBookings(result.data)
                 setPrivateContent(userresult.data);
                 const bookingresult = await axios.get(`http://localhost:15425/bookings/?username=${user.username}`, {
@@ -77,9 +64,7 @@ function Profile() {
                         Authorization: `Bearer ${token}`,
                     }
                 });
-                console.log(bookingresult.data);
                 setUserBooking(()=> userBooking = bookingresult.data);
-                console.log(userBooking);
             } catch(e) {
                 console.error(e);
             }
@@ -94,10 +79,8 @@ function Profile() {
         <>
             <div className="profile-page">
                 <div className="profile-container">
-                    {console.log(user)}
 
-            {/*<section>*/}
-                {user.authority === "ROLE_USER" ? (
+                {user.authority === "USER" ? (
                 <>
                     <h1>Mijn gegevens</h1>
                     <h2>Gegevens</h2>
@@ -108,19 +91,20 @@ function Profile() {
                         <>
                     Mijn boekingen:
                     {userBooking.map(booking => {
-                        return <li>ID: {booking.id} Datum: {moment(booking.date).format().slice(0,-15)} Starttijd: {booking.startTime} Fiets: {booking.bike.bikeName} Aantal: {booking.amount} Prijs: € {booking.price},-</li>
+                        return <li key={booking.id}>ID: {booking.id} Datum: {moment(booking.date).format().slice(0,-15)} Starttijd: {booking.startTime} Fiets: {booking.bike.bikeName} Aantal: {booking.amount} Prijs: € {booking.price},-</li>
                     })}
                         </>) : ( <>
                         <p>Je hebt nog geen boekingen</p>
 
                     </>)}
-                    {upload != null && user.authority === "ROLE_USER" ? (
+                    {upload != null && user.authority === "USER" ? (
                         <>
                             <p>Je hebt al een ID ge-upload!</p>
                         </> ) : ( <>
                             <form onSubmit={handleSubmit(formSubmit)} className="upload-functie">
                                 <div>
-                                    <h3>Voor boekingen boven de 200 euro is een kopie van identificatie vereist.</h3>
+                                    <h3>Om meer dan 2 fietsen te reserveren is een kopie van identificatie vereist!</h3>
+                                    <h3>Alleen PDF bestanden worden geaccepteerd met een maximale bestandsgrootte van 1MB</h3>
                                 </div>
                                 <input type="file"
                                        {...register("identificationPath", {
@@ -137,36 +121,15 @@ function Profile() {
                     ) : (
                         <></>
                 )}
-                {/*}*/}
-                {user.authority === "ROLE_ADMIN" ? (
+                {user.authority === "ADMIN" ? (
 
                     <>
-
-                    {/*<form className="booking-form" onSubmit={handleSubmit(onSubmit)}>*/}
-                    {/*    <div className="choose-date-bookings">*/}
-                    {/*        <Controller*/}
-                    {/*            control={control}*/}
-                    {/*            name='dateinput'*/}
-                    {/*            render={({ field }) => (*/}
-                    {/*                <DatePicker*/}
-                    {/*                    placeholderText='Kies hier een datum'*/}
-                    {/*                    onChange={(date) => field.onChange(date)}*/}
-                    {/*                    selected={field.value}*/}
-                    {/*                    dateFormat="dd/MM/yyyy"*/}
-                    {/*                    minDate={new Date()}*/}
-                    {/*                    required*/}
-                    {/*                />*/}
-                    {/*            )}*/}
-                    {/*        />*/}
-                    {/*    </div>*/}
-                    {/*    <button type="submit">zoek op deze datum</button>*/}
-                    {/*    </form>*/}
                         <div className="userlist-container">
                             <h1>ADMIN pagina</h1>
                         <h3>Lijst met users:</h3>
                         <ul>
                             {users.map(user => {
-                                return <li>{user.username}</li>
+                                return <li key={user.id}>{user.username}</li>
                             })}
 
 
@@ -178,20 +141,6 @@ function Profile() {
                     <></>
                 )}
 
-
-
-
-                {/*</form>*/}
-            {/*</section>*/}
-
-            {privateContent &&
-            <section>
-
-                {/*<h2>Afgeschermde content voor ingelogde gebruikers</h2>*/}
-                {/*<h4>{privateContent.name}</h4>*/}
-                {/*<p>{privateContent.content}</p>*/}
-            </section>
-            }
             <p>Terug naar de <Link to="/">Homepagina</Link></p>
                     <button id="logout-button" onClick={logout}>Uitloggen</button>
             </div>

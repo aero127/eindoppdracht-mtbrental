@@ -20,3 +20,8 @@
 .reservation-overview p {
     font-size: 25px;
 }
+
+.have-upload-id {
+    color: red;
+    font-size: 15px;
+}

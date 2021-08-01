@@ -12,7 +12,6 @@ function AuthContextProvider({ children }) {
         status: 'pending',
         upload: null,
     })
-    // const [tokenValidation, setTokenValidation] =  useState(false);
 
     const history = useHistory();
 
@@ -22,12 +21,11 @@ function AuthContextProvider({ children }) {
         if(!jwtToken) return false;
 
         const decodedToken = jwt_decode(jwtToken);
-        const expirationUnix = decodedToken.exp; // let op: dit is een UNIX timestamp
+        const expirationUnix = decodedToken.exp;
 
-        const now = new Date().getTime(); // dit is een javascript timestamp
-        const currentUnix = Math.round(now / 1000); // nu is het ook een UNIX timestamp
+        const now = new Date().getTime();
+        const currentUnix = Math.round(now / 1000);
 
-        // Als er nog seconden over zijn wanneer we "nu" aftrekken van de expiratiedatum is hij nog geldig
         const isTokenStillValid = expirationUnix - currentUnix > 0;
 
         return isTokenStillValid;
@@ -35,9 +33,6 @@ function AuthContextProvider({ children }) {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        // if (token && isTokenValid()) {
-        //     setTokenValidation(true);
-        // }
         if(!authState.user && isTokenValid()) {
             const decodedToken = jwt_decode(token);
 
@@ -55,17 +50,14 @@ function AuthContextProvider({ children }) {
 
 
     function login(jwtToken) {
-        console.log(jwtToken)
         localStorage.setItem('token', jwtToken);
         const decodedToken = jwt_decode(jwtToken);
-        console.log(decodedToken);
         const userId = decodedToken.sub;
 
         fetchUserData(jwtToken, userId);
     }
 
     async function fetchUserData(token, id) {
-        console.log(token)
         try {
             const result = await axios.get(`http://localhost:15425/users/${id}`, {
                 headers: {
@@ -73,7 +65,6 @@ function AuthContextProvider({ children }) {
                     Authorization: `Bearer ${token}`,
                 }
             });
-            console.log(result);
 
             setAuthState({
                 user: {
@@ -82,10 +73,7 @@ function AuthContextProvider({ children }) {
                     voornaam: result.data.firstName,
                     achternaam: result.data.lastName,
                     email: result.data.email,
-                    //id: result.data.id,
                     authority: result.data.authorities[0].authority,
-                   // identification: result.data.identification
-                    // als je ook rollen hebt, plaats je die er ook bij!
                 },
                 status: 'done',
                 upload: result.data.identification,
@@ -101,11 +89,9 @@ function AuthContextProvider({ children }) {
         localStorage.removeItem("token");
         setAuthState({user: null, status: "done", upload: null});
         history.push("/");
-        console.log('logout!');
     }
 
-    // We hebben de gebruikersdata nodig, functies voor in- en uitloggen, de status van data-ophalen en, mocht het fout gaan, errors!
-    // Omdat authState onderdeel willen maken van het data object (en geen object in een object) gebruiken we de spread-operator (...)
+
     const data = {
         ...authState,
         login: login,

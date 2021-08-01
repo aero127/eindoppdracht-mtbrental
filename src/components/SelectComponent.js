@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Select from "react-select";
-import {BookingContext} from "../BookingContext";
+import {BookingContext} from "../context/BookingContext";
 
 
 function SelectComponent({options, placeholder, register}) {

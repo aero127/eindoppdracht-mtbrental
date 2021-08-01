@@ -9,7 +9,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider, {AuthContext} from "./context/AuthContext";
-import {BookingProvider} from './BookingContext';
+import {BookingProvider} from './context/BookingContext';
 
 ReactDOM.render(
   <React.StrictMode>

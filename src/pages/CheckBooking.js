@@ -1,6 +1,6 @@
-import React, {useContext} from 'react';
-import {BookingContext} from "../BookingContext";
-import './checkBooking.css';
+import React, {useContext, useState} from 'react';
+import {BookingContext} from "../context/BookingContext";
+import './CheckBooking.css';
 import moment from "moment";
 import { useHistory } from 'react-router-dom';
 
@@ -20,22 +20,23 @@ function CheckBooking() {
                 <h3>
                     {console.log(booking)}
                         Je hebt het volgende geboekt
-                        {booking.map((bookings) => {
-                            return <div key={bookings.id}>
-                                <h2 key={bookings.id} className="reservation-overview">
+                        {booking.map((bookings, index) => {
+                            return <div className="checkbooking-container" key={index}>
+                                <h2 className="reservation-overview">
                                     <p>datum: {(moment(bookings.dateinput).format().slice(0,-15))}</p>
-                                    <p key={bookings.id}>starttijd: {bookings.starttime}</p>
-                                    <p key={bookings.id}>soort MTB: 26 inch MTB</p>
-                                    <p key={bookings.id}>aantal fietsen: {bookings.amount}</p>
-                                    <p key={bookings.id}>termijn: 1 dag</p>
-                                    <p key={bookings.id}>helm: {bookings.checkboxhelmet}</p>
-                                    <p key={bookings.id}>spd: {bookings.checkboxspd}</p>
+                                    <p>starttijd: {bookings.starttime}</p>
+                                    <p>soort MTB: 26 inch MTB</p>
+                                    <p>aantal fietsen: {bookings.amount}</p>
+                                    <p>termijn: 1 dag</p>
+                                    <p>helm: {bookings.checkboxhelmet}</p>
+                                    <p>spd: {bookings.checkboxspd}</p>
                                     {bookings.checkboxhelmet ? <>
-                                        <p key={bookings.id}>Prijs: €{((bookings.amount) * 35) + ((bookings.amount) * 4)},-</p>
+                                        <p>Prijs: €{((bookings.amount) * 35) + ((bookings.amount)) * 4},-</p>
                                         </> : <>
-                                            <p key={bookings.id}>Prijs: €{(bookings.amount) * 35},-</p>
+                                            <p>Prijs: €{(bookings.amount) * 35},-</p>
                                         </>
                                         }
+
 
 
                                 </h2>
