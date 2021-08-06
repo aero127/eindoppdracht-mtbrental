@@ -73,19 +73,21 @@ const Booking = () => {
             } else {
                 setMaxBikesToRent(()=> maxBikesToRent = "2");
             }
-            console.log(maxBikesToRent);
         } catch (e) {
             console.error(e);
         }
     }
 
-    function onSubmit(data) {
+    async function onSubmit(data) {
         setBooking([
             ...booking,
             data,
         ]);
 
         setBookingAdded(true);
+        setTimeout(() => {
+            // finalizeBooking();
+        }, 2000);
     }
 
     async function finalizeBooking(data) {
@@ -101,10 +103,10 @@ const Booking = () => {
                 helmet: booking[0].checkboxhelmet,
                 spdPedals: booking[0].checkboxspd,
             });
-
+            console.log(result)
 
             setTimeout(() => {
-                // history.push('/profile');
+                history.push('/checkbooking')
             }, 2000);
         } catch (e) {
             console.error(e);
@@ -112,9 +114,9 @@ const Booking = () => {
         }
         toggleLoading(false);
 
-        console.log('dit moet naar de backend: ', booking);
-        console.log(moment(booking[0].dateinput).toISOString())
-        history.push('/checkbooking')
+        //console.log('dit moet naar de backend: ', booking);
+        // console.log(moment(booking[0].dateinput).toISOString())
+
         setCheckBooking(true);
     }
 
@@ -127,9 +129,9 @@ const Booking = () => {
             <div className="main-reservation-container">
                 {bookingAdded
                     ? <>
-                        <h3 className="successfull-booking">Succesvol geboekt. Wil je nog een fiets huren?</h3>
-                        <button type="button" onClick={() => setBookingAdded(false)}>Ja</button>
-                        <button type="button" onClick={finalizeBooking}>Nee</button>
+                        <h3 className="successfull-booking">Succesvol geboekt!</h3>
+                        {/*<button type="button" onClick={() => setBookingAdded(false)}>Ja</button>*/}
+                        <button type="button" onClick={finalizeBooking}>Verder</button>
                     </>
                     : <>
                         <h1>Reservering maken</h1>

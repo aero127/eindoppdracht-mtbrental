@@ -29,6 +29,7 @@ function Profile() {
 
     const formSubmit = (data) => {
         formData.append("file", data.identificationPath[0])
+        sendInfo(formData)
     }
 
     async function sendInfo (formData) {
@@ -36,6 +37,7 @@ function Profile() {
         try {
             const result = await axios.post(`http://localhost:15425/users/${user.username}/license`, formData
             )
+            console.log(result)
             if (result.status===200){setSucces(true)}
         } catch (e) {
             console.log(console.error(e))

@@ -18,7 +18,6 @@ function CheckBooking() {
         <div className="bookings-check">
             <>
                 <h3>
-                    {console.log(booking)}
                         Je hebt het volgende geboekt
                         {booking.map((bookings, index) => {
                             return <div className="checkbooking-container" key={index}>
