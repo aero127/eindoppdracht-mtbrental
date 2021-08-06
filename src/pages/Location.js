@@ -1,5 +1,6 @@
 import React from 'react';
 import "./Location.css";
+import { Link } from 'react-router-dom'
 
 
 function Location(props) {
@@ -33,7 +34,7 @@ function Location(props) {
                 </div>
                 <div className="location-beschikbaar">
                     Beschikbaar:
-                    <li>26 inch Mountainbikes</li>
+                    <li><Link to="/mtb26inch" style={{ textDecoration: 'none' }}> 26inch Mountainbikes</Link></li>
                     <li>29 inch Mountainbikes</li>
                     <li>Full suspension mountainbikes</li>
                     <li>Elektrische mountainbikes</li>

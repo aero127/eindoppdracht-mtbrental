@@ -58,7 +58,6 @@ function Profile() {
                     }
                 });
                 setUsers(userresult.data)
-                // setBookings(result.data)
                 setPrivateContent(userresult.data);
                 const bookingresult = await axios.get(`http://localhost:15425/bookings/?username=${user.username}`, {
                     headers: {

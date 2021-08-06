@@ -39,7 +39,7 @@ function CheckBooking() {
 
 
                                 </h2>
-                                <button onClick={resetBooking}>verder-></button>
+                                <button onClick={resetBooking}>terug naar de home pagina</button>
                             </div>
                         })}
                     </h3>

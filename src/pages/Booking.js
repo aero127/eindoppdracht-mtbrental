@@ -68,7 +68,9 @@ const Booking = () => {
             setMadeBookings(madebookings = result.data);
             let bookedBikes = (madebookings.reduce((acc, booking) => acc + booking.amount, 0));
             setAvailableBikes(250-bookedBikes)
-            if(upload != null) {
+            if(user.authority === "ADMIN"){
+                setMaxBikesToRent(()=> maxBikesToRent = "99");
+            } else if(upload != null) {
                 setMaxBikesToRent(()=> maxBikesToRent = "10");
             } else {
                 setMaxBikesToRent(()=> maxBikesToRent = "2");
