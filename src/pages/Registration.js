@@ -8,7 +8,7 @@ function Registration() {
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState('');
     const [registerSuccess, toggleRegisterSuccess] = useState(false);
-    const { handleSubmit, formState: { errors }, register } = useForm({ mode: 'onChange' });
+    const { handleSubmit, formState: { errors }, register } = useForm({ mode: 'onChange', reValidateMode: 'onChange' });
     const [password, setPassword] =  useState(null)
     const history = useHistory();
 

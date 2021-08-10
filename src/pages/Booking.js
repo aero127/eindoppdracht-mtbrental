@@ -109,15 +109,12 @@ const Booking = () => {
 
             setTimeout(() => {
                 history.push('/checkbooking')
-            }, 2000);
+            }, 500);
         } catch (e) {
             console.error(e);
             setError(`De booking is mislukt. Probeer het opnieuw (${e.message})`);
         }
         toggleLoading(false);
-
-        //console.log('dit moet naar de backend: ', booking);
-        // console.log(moment(booking[0].dateinput).toISOString())
 
         setCheckBooking(true);
     }
@@ -132,7 +129,6 @@ const Booking = () => {
                 {bookingAdded
                     ? <>
                         <h3 className="successfull-booking">Succesvol geboekt!</h3>
-                        {/*<button type="button" onClick={() => setBookingAdded(false)}>Ja</button>*/}
                         <button type="button" onClick={finalizeBooking}>Verder</button>
                     </>
                     : <>
@@ -197,7 +193,7 @@ const Booking = () => {
                                     </label> ja
                                 </div>
 
-                                <button type="submit" disabled={availableBikes===0} className="booking-select-button">
+                                <button type="submit" disabled={availableBikes===0 || user === null} className="booking-select-button">
                                     bevestigen
                                 </button>
                             </form>
