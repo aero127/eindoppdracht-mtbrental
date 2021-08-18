@@ -12,7 +12,7 @@ function Profile() {
     const [users, setUsers] = useState([]);
     let [userBooking, setUserBooking] =  useState ([])
     const { logout } = useContext(AuthContext);
-    const { handleSubmit, formState: register } = useForm();
+    const { handleSubmit, formState: { errors }, register, watch, control } = useForm();
     let searchDate = "";
     const { user } = useContext(AuthContext);
     const { upload } = useContext(AuthContext);
