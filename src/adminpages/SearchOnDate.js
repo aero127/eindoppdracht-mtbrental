@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 
 function SearchOnDate() {
     const { user } = useContext(AuthContext);
-    const { handleSubmit, formState: { errors }, register, watch, control } = useForm();
+    const { handleSubmit, formState: control } = useForm();
     const [bookings, setBookings] = useState([]);
     const token = localStorage.getItem('token');
     let [dateSearch, setDateSearch] = useState('2021-07-21T00:00:00')
@@ -32,8 +32,6 @@ function SearchOnDate() {
                     console.error(e);
                 }
             }
-
-
 
 
     return(
@@ -73,7 +71,6 @@ function SearchOnDate() {
             ) : (
                 <>Geen rechten !</>
             )}
-
         </>
         </div>
     );

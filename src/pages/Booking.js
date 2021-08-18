@@ -123,22 +123,21 @@ const Booking = () => {
     return (
         <div className="bookingpage-container">
             <button className="reservation-button">Aantal fietsen beschikbaar:{availableBikes}</button>
-
-
             <div className="main-reservation-container">
                 {bookingAdded
                     ? <>
                         <h3 className="successfull-booking">Succesvol geboekt!</h3>
                         <button type="button" onClick={finalizeBooking}>Verder</button>
                     </>
-                    : <>
+                    :
+                    <>
                         <h1>Reservering maken</h1>
                         <div className="max-bikes-per-user">
-                        <p>Per gebruiker kunnen max 2 fietsen gehuurd worden.</p>
-                        <p>Wanneer een kopie van ID is ge-upload worden dit er max 10!</p></div>
+                            <p>Per gebruiker kunnen max 2 fietsen gehuurd worden.</p>
+                            <p>Wanneer een kopie van ID is ge-upload worden dit er max 10!</p>
+                        </div>
                         <h3>Selecteer hier een datum</h3>
                         <div className="calender-container">
-
                             <form className="booking-form" onSubmit={handleSubmit(onSubmit)}>
                                 <Controller
                                     control={control}

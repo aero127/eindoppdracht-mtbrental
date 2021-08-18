@@ -4,13 +4,10 @@ import { MdAssignmentTurnedIn } from "react-icons/md"
 import { FaUser } from "react-icons/fa"
 import {NavLink} from "react-router-dom";
 import { AuthContext } from '../context/AuthContext';
-import { useHistory } from 'react-router-dom';
 
 
-function Header({ background, title, mtblogo }) {
-    const history = useHistory();
+function Header({ background, mtblogo }) {
     const {isTokenValid} = useContext(AuthContext);
-    const { logout } = useContext(AuthContext);
 
     return (
         <div className="header-container" style={{ backgroundImage: `url(${background})` }}>
@@ -30,7 +27,7 @@ function Header({ background, title, mtblogo }) {
             <div className="header-wrapper">
                <div className="logo-holder">
                     <img src={mtblogo} alt="mtb-rental" />
-                </div>
+               </div>
                 <nav>
                     <ul>
                         <li><NavLink to="/">Home</NavLink></li>
@@ -39,7 +36,6 @@ function Header({ background, title, mtblogo }) {
                         <li><NavLink to="/contact">Contact</NavLink></li>
                     </ul>
                 </nav>
-                <div className="extra-ruimte"></div>
             </div>
         </div>
     );

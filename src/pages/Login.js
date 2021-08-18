@@ -22,31 +22,32 @@ function Login() {
     return (
         <>
         <div className="main-login-container">
-        <div className="login-container">
-            <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-                <h2>Inloggen</h2>
-                <label htmlFor="username" id="username">
-                    Gebruikersnaam:
-                    <input type="text" placeholder=" Username.." id="username" {...register("username")} /><br/>
-                    {errors.username && <span className="errormessage">Dit is een verplicht veld</span>}
-                </label>
+            <div className="login-container">
+                <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+                    <h2>Inloggen</h2>
+                    <label htmlFor="username" id="username">
+                        Gebruikersnaam:
+                        <input type="text" placeholder=" Username.." id="username" {...register("username")} /><br/>
+                        {errors.username && <span className="errormessage">Dit is een verplicht veld</span>}
+                    </label>
 
-                <label htmlFor="password" id="password">
-                    Wachtwoord:
-                    <br/>
-                    <input type="password" placeholder=" Wachtwoord.." id="password" {...register("password", {required: true})}/>
-                    <br/>
-                    {errors.password && errors.password.type === "required" && <span className="errormessage">Dit veld is verplicht.</span>}
-                </label>
+                    <label htmlFor="password" id="password">
+                        Wachtwoord:
+                        <br/>
+                        <input type="password" placeholder=" Wachtwoord.." id="password" {...register("password", {required: true})}/>
+                        <br/>
+                        {errors.password && errors.password.type === "required" && <span className="errormessage">Dit veld is verplicht.</span>}
+                    </label>
 
-                <div className="register-createaccount">
-                    <Link to="/registration" style={{color: 'white',textDecoration: 'none'}}>Account aanmaken</Link></div>
-                <div className="register-forgotpassword">
-                    <Link to="/lostpassword" style={{color: 'white',textDecoration: 'none'}}>Wachtwoord vergeten?</Link></div>
-
-                <button type="submit">Login</button>
-            </form>
-        </div>
+                    <div className="register-createaccount">
+                        <Link to="/registration" style={{color: 'white',textDecoration: 'none'}}>Account aanmaken</Link>
+                    </div>
+                    <div className="register-forgotpassword">
+                        <Link to="/lostpassword" style={{color: 'white',textDecoration: 'none'}}>Wachtwoord vergeten?</Link>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
         </div>
         </>
     );

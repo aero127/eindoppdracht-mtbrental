@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {BookingContext} from "../context/BookingContext";
 import './CheckBooking.css';
 import moment from "moment";
@@ -15,9 +15,9 @@ function CheckBooking() {
     }
     return (
         <div className="booking-check-page">
-        <div className="bookings-check">
-            <>
-                <h3>
+            <div className="bookings-check">
+                <>
+                    <h3>
                         Je hebt het volgende geboekt
                         {booking.map((bookings, index) => {
                             return <div className="checkbooking-container" key={index}>
@@ -41,7 +41,7 @@ function CheckBooking() {
                         })}
                     </h3>
                 </>
-        </div>
+            </div>
         </div>
     );
 }

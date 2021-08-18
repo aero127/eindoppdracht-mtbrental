@@ -38,7 +38,6 @@ import {
 function App() {
   return (
       <>
-
           <ScrollToTop/>
       <Header
       background={backgroundtop}
@@ -97,7 +96,6 @@ function App() {
       <Footer
           background_footer={background_footer}
       />
-
       </>
   );
 }
