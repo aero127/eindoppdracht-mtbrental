@@ -17,9 +17,9 @@ function Footer({background_footer}) {
                     <li>Populaire MTB locaties</li>
                     <br/>
                     <div className="location-link">
-                        <span><li>Lage Vuursche</li></span>
-                        <span><li>Hooge Vuursche</li></span>
-                        <span><li>Utrechtse Heuvelrug</li></span>
+                        <span><li><a href="https://www.mtbroutes.nl/utrecht/lage-vuursche" target="_blank" rel="noreferrer">Lage Vuursche</a></li></span>
+                        <span><li><a href="https://www.mtbroutes.nl/utrecht/hoge-vuursche" target="_blank" rel="noreferrer">Hooge Vuursche</a></li></span>
+                        <span><li><a href="https://mtb-utrechtseheuvelrug.nl/" target="_blank" rel="noreferrer">Utrechtse Heuvelrug</a></li></span>
                     </div>
                 </ul>
             </div>

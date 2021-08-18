@@ -1,0 +1,27 @@
+.booking-check-page {
+    width: 1200px;
+    height: 700px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
+    margin: 100px auto;
+    text-align: center;
+}
+
+.bookings-check {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.reservation-overview p {
+    font-size: 25px;
+}
+
+.have-upload-id {
+    color: red;
+    font-size: 15px;
+}

@@ -1,6 +1,6 @@
 .main-reservation-container {
     width: 1200px;
-    height: 700px;
+    height: 800px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -37,12 +37,6 @@
     height: 30px;
     font-weight: bold;
 }
-.rent-duration {
-    display: flex;
-    flex-direction: row;
-    width: 250px;
-    justify-content: space-between;
-}
 
 .react-datepicker__input-container {
     display: flex;
@@ -77,4 +71,15 @@
 
 .reservation-overview {
     color: black;
+}
+
+.no-available-bikes {
+    color: red;
+    font-size: 15px;
+}
+
+.max-bikes-per-user {
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
 }

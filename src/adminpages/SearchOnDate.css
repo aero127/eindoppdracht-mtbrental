@@ -1,0 +1,25 @@
+.search-on-date-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    max-width: 70%;
+    height: 600px;
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
+    flex-direction: column;
+    margin: 75px auto;
+    padding: 20px;
+}
+
+.search-on-date-container {
+    margin: 100px;
+}
+
+.search-on-date-container p {
+    font-size: 20px;
+}
+
+.bookinglist-container ul li {
+    list-style: none;
+}

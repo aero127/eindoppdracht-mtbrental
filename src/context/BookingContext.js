@@ -4,7 +4,7 @@ export const BookingContext = createContext({});
 
 
 export const BookingProvider = props => {
-    const [booking, setBooking] = useState([])
+    const [booking, setBooking] = useState([]);
 
     return (
         <BookingContext.Provider value={{setBooking:setBooking, booking:booking }}>

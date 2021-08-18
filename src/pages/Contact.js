@@ -1,4 +1,4 @@
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import React from "react";
 import "./Contact.css";
 import mtbtire from "../assets/bicycle-tires.jpg"

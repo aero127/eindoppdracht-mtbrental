@@ -1,5 +1,4 @@
 import './App.css';
-import './components/Button.css';
 import './components/Header.css';
 import './components/Footer.css';
 import './pages/Home.css';
@@ -26,8 +25,9 @@ import Location from "./pages/Location";
 import Contact from "./pages/Contact";
 import ScrollToTop from "./components/ScrollToTop";
 import Booking from "./pages/Booking";
-import { BookingProvider } from './BookingContext';
 import Profile from './pages/Profile';
+import CheckBooking from "./pages/CheckBooking";
+import SearchOnDate from "./adminpages/SearchOnDate"
 import {
     BrowserRouter as Router,
     Switch,
@@ -38,14 +38,18 @@ import {
 function App() {
   return (
       <>
-      <BookingProvider>
-
           <ScrollToTop/>
       <Header
       background={backgroundtop}
       mtblogo={mtblogo}
       />
           <Switch>
+              <Route exact path='/zoeken-op-datum'>
+                  <SearchOnDate/>
+              </Route>
+              <Route exact path='/checkbooking'>
+                  <CheckBooking/>
+              </Route>
               <Route exact path='/profile'>
                   <Profile/>
               </Route>
@@ -92,9 +96,6 @@ function App() {
       <Footer
           background_footer={background_footer}
       />
-
-
-      </BookingProvider>
       </>
   );
 }

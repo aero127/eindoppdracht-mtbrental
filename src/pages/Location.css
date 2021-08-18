@@ -52,3 +52,11 @@
 .location-content h3 {
     font-size: 15px;
 }
+
+.location-beschikbaar li {
+    text-decoration: none;
+}
+
+.location-beschikbaar li:visited {
+    text-decoration: none;
+}

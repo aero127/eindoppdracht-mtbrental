@@ -1,0 +1,24 @@
+.profile-page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    max-width: 70%;
+    height: auto;
+    box-shadow: 5px 6px 15px 5px rgba(0,0,0,0.5);
+    flex-direction: row;
+    margin: 75px auto;
+    padding: 20px;
+}
+.profile-container {
+    margin: 100px;
+}
+
+.profile-container p {
+    font-size: 20px;
+}
+
+.userlist-container ul li {
+    list-style: none;
+}

@@ -20,7 +20,7 @@ De door ons gekozen BeOne hardtail mountainbikes beschikken over een allround ge
             De BeOne Bikes zijn zeer geschikt voor ruig terrein, zoals die te vinden is op de mountainbike routes bij Hilversum,
             maar kunnen ook perfect gebruikt worden voor (dag) tochten door bos en hei. "
             bikePricesThreeHours="20"
-            bikePricesDay="25"
+            bikePricesDay="35"
             bikePricesWeek="99"
             nextBike="/mtb29inch"
             previousBike="/mtbkids"

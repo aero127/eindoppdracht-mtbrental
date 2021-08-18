@@ -22,15 +22,15 @@ function Bike(props) {
                 <img src={props.bikeImg} alt={props.bikeName}/>
                 <div className="bikeSpecs"> {props.bikeSpecs}</div>
             <div className="bikePrices"><span className="bike-prices-span">Prijzen {props.bikeName}</span>
-            <div className="bike-price-3hours"><span className="bike-price-3hours-span">3 uren voor € {props.bikePricesThreeHours},-</span></div>
+            {/*<div className="bike-price-3hours"><span className="bike-price-3hours-span">3 uren voor € {props.bikePricesThreeHours},-</span></div>*/}
             <div className="bike-price-day"><span className="bike-price-day-span">1 dag voor € {props.bikePricesDay},-</span></div>
-            <div className="bike-price-week"><span className="bike-price-week-span">1 week voor € {props.bikePricesWeek},-</span></div>
+            {/*<div className="bike-price-week"><span className="bike-price-week-span">1 week voor € {props.bikePricesWeek},-</span></div>*/}
             </div>
             <div className="bike-helmet-container">
                 <span className="helmet-prices">Prijzen MTB helm</span>
-                <div className="bike-helmet-price-3hours"><span className="helmet-prices-3hours">3 uren, € 3,- </span></div>
+                {/*<div className="bike-helmet-price-3hours"><span className="helmet-prices-3hours">3 uren, € 3,- </span></div>*/}
                 <div className="bike-helmet-price-day"><span className="helmet-prices-day">1 dag, € 4,-</span></div>
-                <div className="bike-helmet-price-Week"><span className="helmet-prices-week">1 week, € 16,-</span></div>
+                {/*<div className="bike-helmet-price-Week"><span className="helmet-prices-week">1 week, € 16,-</span></div>*/}
             </div>
             <div className="bike-also-available">{props.bikeAlsoAvailable}</div>
         </div>
